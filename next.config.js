@@ -1,13 +1,14 @@
-const withMDX = require("@next/mdx")({
-  extension: /\.mdx?$/,
-  options: {
-    remarkPlugins: [],
-    rehypePlugins: [],
-    // If you use `MDXProvider`, uncomment the following line.
-    // providerImportSource: "@mdx-js/react",
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  env: {
+    SUPABASE_ANON_KEY: process.env.SUPABASE_ANON_KEY,
+    SUPABASE_URL: process.env.SUPABASE_URL,
   },
-});
-module.exports = withMDX({
-  // Append the default value with md extensions
-  pageExtensions: ["ts", "tsx", "js", "jsx", "md", "mdx"],
-});
+  images: {
+    domains: ['avatars.githubusercontent.com'],
+  },
+}
+
+module.exports = nextConfig

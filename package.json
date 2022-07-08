@@ -1,5 +1,5 @@
 {
-  "name": "mdx-blog",
+  "name": "supabase-blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,15 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@mdx-js/loader": "^2.1.2",
-    "@next/mdx": "^12.1.6",
-    "next": "12.1.6",
-    "next-mdx-remote": "^4.0.3",
+    "@supabase/supabase-js": "^1.35.4",
+    "next": "12.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "eslint": "8.18.0",
-    "eslint-config-next": "12.1.6"
+    "eslint": "8.19.0",
+    "eslint-config-next": "12.2.1"
   }
 }
