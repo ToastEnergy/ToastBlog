@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "../styles/style.scss";
 import Header from "../components/Header";
 
 function MyApp({ Component, pageProps }) {

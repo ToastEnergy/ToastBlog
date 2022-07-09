@@ -2,16 +2,17 @@ import Link from 'next/link';
 
 export default function Article({ article }) {
     return (
-        <div>
-            <h1>
+        <div className="article">
+            <Link href={'/users/' + article.author.username}>
+                <a class="author">@{article.author.username}</a>
+            </Link>
+            <h1 class="title">
                 <Link href={'/articles/' + article.url}>
                     <a>{article.title}</a>
                 </Link>
             </h1>
-            <Link href={'/users/' + article.author.username}>
-                <a>@{article.author.username}</a>
-            </Link>
-            <p>{article.body}</p>
+            <hr />
+            <p class="body">{article.body}</p>
         </div>
     );
 }

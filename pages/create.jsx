@@ -22,17 +22,19 @@ export default function Create() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        const url = e.target.url.value.trim().replaceAll(' ', '-') + '-' + Date.now().toString();
+
         const { data, error } = await supabase.from("articles").insert({
             title: e.target.title.value,
             body: e.target.body.value,
             author: supabase.auth.user().id,
-            url: e.target.url.value,
+            url: url,
             id: Date.now(),
         });
 
         if (error) alert("There was an error creating the article");
         e.target.body.value = "";
-        location.href = '/articles/' + e.target.url.value;
+        location.href = '/articles/' + url;
     };
 
     return (
