@@ -42,24 +42,29 @@ export default function Auth() {
             {
                 provider: "github",
             },
-            { redirectTo: location.protocol + '//' + location.host + '/logged' }
+            { redirectTo: location.protocol + "//" + location.host + "/logged" }
         );
         setUser(user);
     }
 
     if (user) {
         return (
-            <div>
-                <p>{user.user_metadata.user_name}</p>
-                <button
-                    onClick={async () => {
-                        setUser(null);
-                        await supabase.auth.signOut();
-                    }}
-                >
-                    logout
-                </button>
-            </div>
+            <>
+                <div className="nav-item">
+                    <p>{user.user_metadata.user_name}</p>
+                </div>
+                <hr />
+                <div className="nav-item">
+                    <button
+                        onClick={async () => {
+                            setUser(null);
+                            await supabase.auth.signOut();
+                        }}
+                    >
+                        logout
+                    </button>
+                </div>
+            </>
         );
     }
     return (

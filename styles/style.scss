@@ -1,6 +1,11 @@
 $color1: #121212;
 $color2: #1d1d1d;
 
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-color: $color1;
     color: white;
@@ -15,9 +20,72 @@ a {
     }
 }
 
+@keyframes appear {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+@keyframes disappear {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+header {
+    margin-bottom: 112px;
+}
+
+.header-child {
+    z-index: 999;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    .icon {
+        display: inline-block;
+        cursor: pointer;
+
+        svg {
+            height: 30px;
+        }
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .nav-closed {
+        padding: 20px;
+        background-color: $color2;
+        width: calc(100vw - 40px);
+    }
+
+    .nav-opened {
+        animation: appear 0.2s;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        display: flex;
+        padding: 20px;
+        background-color: RGBA(0, 0, 0, 0.5);
+        width: 50vw;
+
+        hr {
+            width: 100%;
+        }
+    }
+}
+
 .articles {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 40px;
@@ -26,20 +94,21 @@ a {
 
 .article {
     background-color: $color2;
-    width: 400px;
+    width: 300px;
     padding: 10px;
     border-radius: 8px;
-    box-shadow: 4px 4px 4px RGBA(0,0,0,0.6);
+    box-shadow: 4px 4px 4px RGBA(0, 0, 0, 0.6);
 
     .author {
-        opacity: .3;
+        opacity: 0.3;
     }
 
     hr {
         margin: 15px 0;
     }
 
-    .title, .body {
+    .title,
+    .body {
         margin: 0;
     }
 }
