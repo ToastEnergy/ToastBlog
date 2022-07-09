@@ -4,7 +4,7 @@ import Header from "../components/Header";
 function MyApp({ Component, pageProps }) {
     return (
         <>
-            <Header />
+            {Component.name !== 'Logged' ? <Header /> : null}
             <Component {...pageProps} />
         </>
     );
