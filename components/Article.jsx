@@ -4,15 +4,15 @@ export default function Article({ article }) {
     return (
         <div className="article">
             <Link href={'/users/' + article.author.username}>
-                <a class="author">@{article.author.username}</a>
+                <a className="author">@{article.author.username}</a>
             </Link>
-            <h1 class="title">
+            <h1 className="title">
                 <Link href={'/articles/' + article.url}>
                     <a>{article.title}</a>
                 </Link>
             </h1>
             <hr />
-            <p class="body">{article.body}</p>
+            <p className="body">{article.body}</p>
         </div>
     );
 }
