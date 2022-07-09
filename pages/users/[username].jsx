@@ -1,8 +1,20 @@
-import { supabase } from "../../supabase";
+import { supabase, getArticles } from "../../supabase";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import Loading from "../../components/Loading";
 
-export default function User({ user, articles }) {
+export default function User({ user }) {
+    const [articles, setArticles] = useState(null);
+
+    useEffect(() => {
+        const ga = async () => {
+            const { data: articles, error } = await supabase.from('articles').select('title, url').eq('author', user.id).order('created_at', {ascending: false});
+            setArticles(articles);
+        };
+        ga();
+    });
+
     return (
         <div>
             <div className="info">
@@ -14,7 +26,8 @@ export default function User({ user, articles }) {
             </div>
             <div className="articles">
                 <h2>articles by {user.name}</h2>
-                <ul>
+                {articles ? (
+                    <ul>
                     {articles.map((article, index) => {
                         return (
                             <li key={index}>
@@ -27,27 +40,23 @@ export default function User({ user, articles }) {
                         );
                     })}
                 </ul>
+                ) : (
+                    <Loading />
+                )}
             </div>
         </div>
     );
 }
 
 export async function getStaticProps({ params }) {
-    const { data: users, error: error1 } = await supabase
+    const { data: users, error } = await supabase
         .from("users")
         .select("*")
         .eq("username", params.username);
 
-    const { data: articles, error: error2 } = await supabase
-        .from("articles")
-        .select("title, url")
-        .eq("author", users[0].id)
-        .order("created_at", {ascending: false});
-
     return {
         props: {
             user: users[0],
-            articles: articles,
         },
     };
 }

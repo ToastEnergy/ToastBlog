@@ -1,3 +1,5 @@
+@use '_spinner';
+
 $color1: #121212;
 $color2: #1d1d1d;
 
@@ -74,7 +76,7 @@ header {
         height: 100vh;
         display: flex;
         padding: 20px;
-        background-color: RGBA(0, 0, 0, 0.5);
+        background-color: RGBA(0, 0, 0, 0.7);
         width: 50vw;
 
         hr {
