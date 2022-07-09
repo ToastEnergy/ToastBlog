@@ -5,20 +5,32 @@ import Link from "next/link";
 import Loading from "../../components/Loading";
 
 export default function User({ user }) {
+    const [loaded, setLoaded] = useState(false);
     const [articles, setArticles] = useState(null);
 
+    const ga = async () => {
+        const { data: articles, error } = await supabase
+            .from("articles")
+            .select("title, url")
+            .eq("author", user.id)
+            .order("created_at", { ascending: false });
+        setArticles(articles);
+    };
+
     useEffect(() => {
-        const ga = async () => {
-            const { data: articles, error } = await supabase.from('articles').select('title, url').eq('author', user.id).order('created_at', {ascending: false});
-            setArticles(articles);
-        };
         ga();
-    });
+        setLoaded(true);
+    }, [loaded]);
 
     return (
         <div>
             <div className="info">
-                <Image src={user.avatar} alt="Profile Picture" width={100} height={100} />
+                <Image
+                    src={user.avatar}
+                    alt="Profile Picture"
+                    width={100}
+                    height={100}
+                />
                 <h1>{user.name}</h1>
                 <p>@{user.username}</p>
                 {user.editor ? <span>editor</span> : null}
@@ -28,18 +40,16 @@ export default function User({ user }) {
                 <h2>articles by {user.name}</h2>
                 {articles ? (
                     <ul>
-                    {articles.map((article, index) => {
-                        return (
-                            <li key={index}>
-                                <Link
-                                    href={"/articles/" + article.url}
-                                >
-                                    <a>{article.title}</a>
-                                </Link>
-                            </li>
-                        );
-                    })}
-                </ul>
+                        {articles.map((article, index) => {
+                            return (
+                                <li key={index}>
+                                    <Link href={"/articles/" + article.url}>
+                                        <a>{article.title}</a>
+                                    </Link>
+                                </li>
+                            );
+                        })}
+                    </ul>
                 ) : (
                     <Loading />
                 )}

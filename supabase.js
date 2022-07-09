@@ -20,13 +20,12 @@ export async function getArticles(url = null) {
     for (const article of articles) {
         const { data, error } = await supabase
             .from("users")
-            .select("*")
+            .select("name, username, id, avatar")
             .eq("id", article.author);
         if (!data || data.length === 0) {
             article.author = {
                 name: "Unknown",
                 username: "unknown",
-                email: "unknown",
                 id: null,
                 avatar: "./default_avatar.png",
             };

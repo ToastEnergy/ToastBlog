@@ -4,15 +4,18 @@ import { supabase, getArticles } from "../supabase";
 import { useState, useEffect } from "react";
 
 export default function Home() {
+    const [loaded, setLoaded] = useState(false);
     const [articles, setArticles] = useState(null);
 
+    const ga = async () => {
+        const articles = await getArticles();
+        setArticles(articles);
+    };
+
     useEffect(() => {
-        const ga = async () => {
-            const articles = await getArticles();
-            setArticles(articles);
-        };
         ga();
-    });
+        setLoaded(true);
+    }, [loaded]);
 
     return (
         <div className="articles">
