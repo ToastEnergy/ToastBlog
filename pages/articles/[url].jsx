@@ -1,8 +1,14 @@
-import { supabase, getArticles } from '../../supabase';
-import Article from '../../components/Article';
+import { supabase, getArticles } from "../../supabase";
+import Article from "../../components/Article";
+import Meta from "../../components/Meta";
 
-export default function Post({ article }) {
-    return <Article article={article} />;
+export default function ArticlePage({ article }) {
+    return (
+        <>
+            <Meta title={article.title} />
+            <Article article={article} />
+        </>
+    );
 }
 
 export async function getStaticProps({ params }) {
@@ -19,8 +25,8 @@ export async function getStaticPaths() {
     const { data, error } = await supabase.from("articles").select("url");
 
     const paths = data.map((article) => ({
-      params: { url: article.url },
-    }))
-  
-    return { paths, fallback: false }
-  }
+        params: { url: article.url },
+    }));
+
+    return { paths, fallback: false };
+}
