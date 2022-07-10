@@ -2,6 +2,7 @@ import Article from "../components/Article";
 import Loading from "../components/Loading";
 import { supabase, getArticles } from "../supabase";
 import { useState, useEffect } from "react";
+import Head from "next/head";
 
 export default function Home() {
     const [loaded, setLoaded] = useState(false);
@@ -18,6 +19,12 @@ export default function Home() {
 
     return (
         <div className="articles">
+            <Head>
+                <meta
+                    name="google-site-verification"
+                    content="dqCd8gJq3lC4TSQN6c9LX8t7EUwwBIwVZl9hBDF5nsg"
+                />
+            </Head>
             {articles ? (
                 <>
                     {articles.map((article) => {
