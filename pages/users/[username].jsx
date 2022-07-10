@@ -34,7 +34,6 @@ export default function User({ user }) {
                 <h1>{user.name}</h1>
                 <p>@{user.username}</p>
                 {user.editor ? <span>editor</span> : null}
-                <p>{user.email}</p>
             </div>
             <div className="articles">
                 <h2>articles by {user.name}</h2>
@@ -61,7 +60,7 @@ export default function User({ user }) {
 export async function getStaticProps({ params }) {
     const { data: users, error } = await supabase
         .from("users")
-        .select("*")
+        .select("name, username, avatar, editor, id")
         .eq("username", params.username);
 
     return {

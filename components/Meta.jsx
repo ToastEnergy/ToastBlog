@@ -11,6 +11,7 @@ export default function Meta({ article }) {
     return (
         <Head>
             <title>{article.title}</title>
+            <meta name="robots" content="index, follow"></meta>
             <meta name="description" content={description} />
             <meta name="author" content={"@" + article.users.username} />
             <meta property="og:locale" content="en_US" />
