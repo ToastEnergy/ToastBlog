@@ -31,7 +31,7 @@ export default function Meta({ article }) {
                     "https://blog.toast.energy.xyz/articles/" + article.url
                 }
             />
-            <meta property="og:site_name" content={article.title} />
+            <meta property="og:site_name" content="Toast Energy Blog" />
             <meta name="twitter:card" content="summary_large_image" />
             <meta name="twitter:title" content={article.title} />
             <meta name="twitter:description" content={description} />
