@@ -40,7 +40,7 @@ export default function Meta({ article }) {
                     article.title +
                     '", "datePublished": "' +
                     article.created_at +
-                    '": "' +
+                    '", "dateCreated": "' +
                     article.created_at +
                     '"}'}
             </script>
