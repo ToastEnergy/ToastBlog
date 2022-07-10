@@ -63,6 +63,19 @@ header {
         margin: 0;
     }
 
+    button  {
+        background-color: $color2;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        color: unset;
+        font-family: unset;
+        font-size: unset;
+        font-weight: unset;
+        padding: 5px 8px;
+        border-radius: 5px;
+    }
+
     .nav-closed {
         padding: 20px;
         background-color: $color2;

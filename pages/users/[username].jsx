@@ -1,4 +1,4 @@
-import { supabase, getArticles } from "../../supabase";
+import { supabase } from "../../supabase";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";

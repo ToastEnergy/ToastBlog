@@ -5,8 +5,10 @@ import Meta from "../../components/Meta";
 export default function ArticlePage({ article }) {
     return (
         <>
-            <Meta title={article.title} />
-            <Article article={article} />
+            <Meta article={article} />
+            <div className="articles">
+                <Article article={article} />
+            </div>
         </>
     );
 }
