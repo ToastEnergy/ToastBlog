@@ -1,5 +1,5 @@
 @use '_spinner';
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai+Looped&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 $color1: #121212;
 $color2: #1d1d1d;
@@ -10,7 +10,7 @@ html, body {
 }
 
 body {
-    font-family: 'IBM Plex Sans Thai Looped', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: $color1;
     color: white;
 }
@@ -128,7 +128,11 @@ header {
         margin: 15px 0;
     }
 
-    .title,
+    .title {
+        margin-top: 5px;
+        margin-bottom: 0;
+    }
+
     .body {
         margin: 0;
     }
