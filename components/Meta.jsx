@@ -12,14 +12,14 @@ export default function Meta({ article }) {
         <Head>
             <title>{article.title}</title>
             <meta name="description" content={description} />
-            <meta name="author" content={"@" + article.author.username} />
+            <meta name="author" content={"@" + article.users.username} />
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="article" />
             <meta property="og:title" content={article.title} />
             <meta property="og:description" content={description} />
             <meta
                 property="article:author"
-                content={"@" + article.author.username}
+                content={"@" + article.users.username}
             />
             <meta
                 property="article:publisher"
