@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Loading from "../../components/Loading";
+import Meta from "../../components/Meta";
 
 export default function User({ user }) {
     const [loaded, setLoaded] = useState(false);
@@ -24,6 +25,7 @@ export default function User({ user }) {
 
     return (
         <div>
+            <Meta title={user.name} rawDescription={user.name + " profile on the Toast Energy Blog"} />
             <div className="info">
                 <Image
                     src={user.avatar}

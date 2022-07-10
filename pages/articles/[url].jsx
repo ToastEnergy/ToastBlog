@@ -1,11 +1,11 @@
 import { supabase, getArticles } from "../../supabase";
 import Article from "../../components/Article";
-import Meta from "../../components/Meta";
+import ArticleMeta from "../../components/ArticleMeta";
 
 export default function ArticlePage({ article }) {
     return (
         <>
-            <Meta article={article} />
+            <ArticleMeta article={article} />
             <div className="articles">
                 <Article article={article} />
             </div>
