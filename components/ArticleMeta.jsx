@@ -36,9 +36,13 @@ export default function Meta({ article }) {
             <meta name="twitter:title" content={article.title} />
             <meta name="twitter:description" content={description} />
             <script type="application/ld+json">
-                &#123; &quot;@context&quot;: &quot;https://schema.org&quot;, &quot;@type&quot;: &quot;Article&quot;,
-                &quot;headline&quot;: &quot;{article.title}&quot;, &quot;datePublished&quot;: &quot;
-                {article.created_at}&quot;: &quot;{article.created_at}&quot; &#125;
+                {'{"@context": "https://schema.org", "@type": "Article", "headline": "' +
+                    article.title +
+                    '", "datePublished": "' +
+                    article.created_at +
+                    '": "' +
+                    article.created_at +
+                    '"}'}
             </script>
         </Head>
     );
