@@ -43,7 +43,11 @@ export default function Create() {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                article: data,
+                article: {
+                    title: e.target.title.value,
+                    url: url,
+                },
+                author: supabase.auth.user().username,
             }),
         });
         location.href = "/articles/" + url;
