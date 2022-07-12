@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
     if (req.method === 'POST') {
-        const tRes = await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`, {
+        await fetch(`https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -11,6 +11,8 @@ export default async function handler(req, res) {
                 parse_mode: 'MarkdownV2',
             }),
         });
+        await res.revalidate('/');
+        await res.revalidate('/articles/' + req.body.article.url);
         return res.status(200).send(JSON.stringify({message: 'ok'}));
     } else {
         return res.status(405).send(`${req.method} method not allowed`);

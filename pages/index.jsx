@@ -5,19 +5,8 @@ import { supabase, getArticles } from "../supabase";
 import { useState, useEffect } from "react";
 import Head from "next/head";
 
-export default function Home() {
-    const [loaded, setLoaded] = useState(false);
-    const [articles, setArticles] = useState(null);
-
-    useEffect(() => {
-        const ga = async () => {
-            const articles = await getArticles();
-            setArticles(articles);
-        };
-        ga();
-        setLoaded(true);
-    }, [loaded]);
-
+export default function Home({ articles }) {
+    
     return (
         <div className="articles">
             <Head>
@@ -38,4 +27,13 @@ export default function Home() {
             )}
         </div>
     );
+}
+
+export async function getStaticProps() {
+    const articles = await getArticles();
+    return {
+        props: {
+            articles,
+        },
+    };
 }
