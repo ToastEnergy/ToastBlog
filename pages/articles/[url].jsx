@@ -1,15 +1,11 @@
 import { supabase, getArticles } from "../../supabase";
+import DefaultErrorPage from "next/error";
 import Article from "../../components/Article";
 import ArticleMeta from "../../components/ArticleMeta";
 
 export default function ArticlePage({ article, error }) {
-
     if (error) {
-        return (
-            <div className="error">
-                <p>404 | Not Found</p>
-            </div>
-        )
+        return <DefaultErrorPage statusCode={404} />;
     }
 
     return (
@@ -28,9 +24,9 @@ export async function getStaticProps({ params }) {
     if (articles.length === 0) {
         return {
             props: {
-                error: true
-            }
-        }
+                error: true,
+            },
+        };
     }
 
     return {
@@ -48,5 +44,5 @@ export async function getStaticPaths() {
         params: { url: article.url },
     }));
 
-    return { paths, fallback: 'blocking' };
+    return { paths, fallback: "blocking" };
 }
