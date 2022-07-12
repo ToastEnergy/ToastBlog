@@ -5,7 +5,7 @@ import Link from "next/link";
 import Loading from "../../components/Loading";
 import Meta from "../../components/Meta";
 
-export default function User({ user }) {
+export default function User({ user, canEdit }) {
     const [loaded, setLoaded] = useState(false);
     const [articles, setArticles] = useState(null);
 

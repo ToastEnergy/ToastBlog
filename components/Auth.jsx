@@ -17,7 +17,6 @@ export default function Auth() {
                 await supabase.from("users").insert({
                     editor: false,
                     id: user.id,
-                    email: user.email,
                     username: user.user_metadata.user_name,
                     name: user.user_metadata.name,
                     avatar: user.user_metadata.avatar_url,

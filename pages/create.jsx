@@ -1,6 +1,6 @@
 import { supabase } from "../supabase";
 import { useState, useEffect } from "react";
-import Auth from '../components/Auth';
+import Auth from "../components/Auth";
 
 export default function Create() {
     const [user, setUser] = useState(null);
@@ -22,7 +22,10 @@ export default function Create() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const url = e.target.url.value.trim().replaceAll(' ', '-') + '-' + Date.now().toString();
+        const url =
+            e.target.url.value.trim().replaceAll(" ", "-") +
+            "-" +
+            Date.now().toString();
 
         const { data, error } = await supabase.from("articles").insert({
             title: e.target.title.value,
@@ -34,7 +37,16 @@ export default function Create() {
 
         if (error) alert("There was an error creating the article");
         e.target.body.value = "";
-        location.href = '/articles/' + url;
+        await fetch("/api/telegram", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                article: data,
+            }),
+        });
+        location.href = "/articles/" + url;
     };
 
     return (
