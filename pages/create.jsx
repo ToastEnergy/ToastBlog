@@ -47,7 +47,7 @@ export default function Create() {
                     title: e.target.title.value,
                     url: url,
                 },
-                author: supabase.auth.user().username,
+                author: supabase.auth.user().user_metadata.user_name,
             }),
         });
         location.href = "/articles/" + url;
