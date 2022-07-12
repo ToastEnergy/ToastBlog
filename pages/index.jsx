@@ -19,7 +19,7 @@ export default function Home({ articles }) {
             {articles ? (
                 <>
                     {articles.map((article) => {
-                        return <Article key={article.id} article={article} />;
+                        return <Article key={article.id} article={article} preview={true} />;
                     })}
                 </>
             ) : (

@@ -1,18 +1,36 @@
-import Link from 'next/link';
+import Link from "next/link";
 
-export default function Article({ article }) {
+export default function Article({ article, preview = false }) {
+    let body = article.body;
+    let button = false;
+    const maxLength = 500;
+
+    if (preview && article.body.length > maxLength) {
+        body = article.body.substring(0, maxLength) + "...";
+        button = true;
+    }
+
     return (
         <div className="article">
-            <Link href={'/users/' + article.users.username}>
+            {button ? (
+                <Link href={`/articles/${article.url}`}>
+                    <a>
+                        <div className="open-article">
+                            <p>Read More</p>
+                        </div>
+                    </a>
+                </Link>
+            ) : null}
+            <Link href={"/users/" + article.users.username}>
                 <a className="author">@{article.users.username}</a>
             </Link>
             <h1 className="title">
-                <Link href={'/articles/' + article.url}>
+                <Link href={"/articles/" + article.url}>
                     <a>{article.title}</a>
                 </Link>
             </h1>
             <hr />
-            <p className="body">{article.body}</p>
+            <p className="body">{body}</p>
         </div>
     );
 }
