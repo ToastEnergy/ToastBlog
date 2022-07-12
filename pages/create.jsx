@@ -22,11 +22,8 @@ export default function Create() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const url =
-            e.target.url.value.trim().replaceAll(" ", "-") +
-            "-" +
-            Date.now().toString();
-
+        const url = encodeURIComponent(e.target.url.value.toLowerCase().replace(/[^a-zA-Z ]/g, "").replace(/\s\s+/g, ' ').trim().replaceAll(' ', '-') + '-' + Date.now().toString());
+        alert(url);
         const { data, error } = await supabase.from("articles").insert({
             title: e.target.title.value,
             body: e.target.body.value,

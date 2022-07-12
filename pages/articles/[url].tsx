@@ -1,9 +1,14 @@
-import { supabase, getArticles } from "../../supabase";
+import { supabase, getArticles, ArticleProps } from "../../supabase";
 import DefaultErrorPage from "next/error";
 import Article from "../../components/Article";
 import ArticleMeta from "../../components/ArticleMeta";
 
-export default function ArticlePage({ article, error }) {
+interface Props {
+    article: string;
+    error: boolean;
+}
+
+export default function ArticlePage({ article, error }: Props) {
     if (error) {
         return <DefaultErrorPage statusCode={404} />;
     }
@@ -18,15 +23,10 @@ export default function ArticlePage({ article, error }) {
     );
 }
 
-export async function getStaticProps({ params }) {
-    const articles = await getArticles(params.url);
-
+export async function getStaticProps({ params }: { params: { url: string } }) {
+    const articles: Array<ArticleProps> = await getArticles(params.url);
     if (articles.length === 0) {
-        return {
-            props: {
-                error: true,
-            },
-        };
+        return { notFound: true };
     }
 
     return {
@@ -38,7 +38,8 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-    const { data, error } = await supabase.from("articles").select("url");
+    let { data, error } = await supabase.from("articles").select("url");
+    !data ? (data = []) : data;
 
     const paths = data.map((article) => ({
         params: { url: article.url },
