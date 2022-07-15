@@ -1,16 +1,17 @@
-@use '_spinner';
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@use "_spinner";
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 $color1: #121212;
 $color2: #1d1d1d;
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     background-color: $color1;
     color: white;
 }
@@ -42,15 +43,16 @@ a {
     }
 }
 
-header {
-    margin-bottom: 112px;
-}
-
 .header-child {
-    z-index: 999;
-    position: fixed;
-    top: 0;
-    left: 0;
+
+    .bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background-color: $color2;
+        width: calc(100vw - 40px);
+        padding: 5px 20px;
+    }
 
     .icon {
         display: inline-block;
@@ -65,7 +67,7 @@ header {
         margin: 0;
     }
 
-    button  {
+    button {
         background-color: $color2;
         border: none;
         outline: none;
@@ -78,13 +80,10 @@ header {
         border-radius: 5px;
     }
 
-    .nav-closed {
-        padding: 20px;
-        background-color: $color2;
-        width: calc(100vw - 40px);
-    }
-
-    .nav-opened {
+    nav {
+        position: fixed;
+        z-index: 999;
+        top: 0;
         animation: appear 0.2s;
         display: flex;
         flex-direction: column;
@@ -101,6 +100,7 @@ header {
 }
 
 .articles {
+    margin-top: 40px;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -109,20 +109,23 @@ header {
     margin-bottom: 50px;
 }
 
-.article {
+.preview {
     position: relative;
     background-color: $color2;
     width: 300px;
     max-height: 500px;
     overflow: hidden;
-    padding: 10px;
-    border-radius: 8px;
     box-shadow: 4px 4px 4px RGBA(0, 0, 0, 0.6);
-    line-break: anywhere;
+    border-radius: 8px;
+    padding: 10px;
+}
 
-    p {
-        font-size: 13px;
-    }
+.full {
+    padding: 20px;
+}
+
+.article {
+    line-break: normal;
 
     .author {
         opacity: 0.3;
@@ -139,6 +142,10 @@ header {
 
     .body {
         margin: 0;
+
+        p {
+            font-size: 13px;
+        }
     }
 }
 
@@ -154,5 +161,12 @@ header {
         padding: 10px;
         margin: 0;
         font-size: 20px;
+    }
+}
+
+.auth {
+    img {
+        border-radius: 1000px;
+        cursor: pointer;
     }
 }

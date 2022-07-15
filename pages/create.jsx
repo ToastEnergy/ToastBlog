@@ -23,7 +23,6 @@ export default function Create() {
         e.preventDefault();
 
         const url = encodeURIComponent(e.target.url.value.toLowerCase().replace(/[^a-zA-Z ]/g, "").replace(/\s\s+/g, ' ').trim().replaceAll(' ', '-') + '-' + Date.now().toString());
-        alert(url);
         const { data, error } = await supabase.from("articles").insert({
             title: e.target.title.value,
             body: e.target.body.value,

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ReactMarkdown from "react-markdown";
 
 export default function Article({ article, preview = false }) {
     let body = article.body;
@@ -11,7 +12,7 @@ export default function Article({ article, preview = false }) {
     }
 
     return (
-        <div className="article">
+        <div className={"article" + (preview ? " preview" : " full")}>
             {button ? (
                 <Link href={`/articles/${article.url}`}>
                     <a>
@@ -30,7 +31,9 @@ export default function Article({ article, preview = false }) {
                 </Link>
             </h1>
             <hr />
-            <p className="body">{body}</p>
+            <div className="body">
+                <ReactMarkdown>{body}</ReactMarkdown>
+            </div>
         </div>
     );
 }

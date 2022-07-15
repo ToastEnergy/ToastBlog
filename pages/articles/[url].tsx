@@ -16,9 +16,7 @@ export default function ArticlePage({ article, error }: Props) {
     return (
         <>
             <ArticleMeta article={article} />
-            <div className="articles">
-                <Article article={article} />
-            </div>
+            <Article article={article} />
         </>
     );
 }

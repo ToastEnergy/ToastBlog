@@ -1,39 +1,42 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { supabase } from "../supabase";
-import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
+import { setUser, resetUser } from "../slice";
+import Image from 'next/image';
 
 export default function Auth() {
-    const [user, setUser] = useState(null);
-    const router = useRouter();
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.slice.user);
 
-    async function addUserToDB(user) {
-        try {
-            const { data, error } = await supabase
-                .from("users")
-                .select("*")
-                .eq("id", user.id);
-            if (error) alert(error.message);
-            if (!data || data.length === 0) {
-                await supabase.from("users").insert({
-                    editor: false,
-                    id: user.id,
-                    username: user.user_metadata.user_name,
-                    name: user.user_metadata.name,
-                    avatar: user.user_metadata.avatar_url,
-                });
-            }
-        } catch (error) {
-            console.log(user);
-            console.log(error);
+    async function getUser(user) {
+        const { data, error } = await supabase
+            .from("users")
+            .select("*")
+            .eq("id", user.id);
+        if (error) alert(error.message);
+
+        if (!data || data.length === 0) {
+            const { data, error } = await supabase.from("users").insert({
+                editor: false,
+                id: user.id,
+                username: user.user_metadata.user_name,
+                name: user.user_metadata.name,
+                avatar: user.user_metadata.avatar_url,
+            });
+            return data[0];
         }
+        return data[0];
     }
 
     useEffect(() => {
-        const user = supabase.auth.user();
-        if (user) {
-            setUser(user);
-            addUserToDB(user);
+        async function loadUser() {
+            const userData = supabase.auth.user();
+            if (!user && userData) {
+                const u = await getUser(userData);
+                dispatch(setUser(u));
+            }
         }
+        loadUser();
     }, []);
 
     async function signInWithGithub() {
@@ -48,22 +51,9 @@ export default function Auth() {
 
     if (user) {
         return (
-            <>
-                <div className="nav-item">
-                    <p>{user.user_metadata.user_name}</p>
-                </div>
-                <hr />
-                <div className="nav-item">
-                    <button
-                        onClick={async () => {
-                            setUser(null);
-                            await supabase.auth.signOut();
-                        }}
-                    >
-                        logout
-                    </button>
-                </div>
-            </>
+            <div className="auth">
+                <Image src={user.avatar} width={40} height={40} />
+            </div>
         );
     }
     return (

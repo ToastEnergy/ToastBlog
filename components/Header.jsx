@@ -10,19 +10,19 @@ export default function Header() {
     return (
         <header>
             <div className="header-child">
-                {!isOpen ? (
-                    <nav className="nav-closed">
-                        <div className="icon">
-                            <FontAwesomeIcon
-                                icon={faBars}
-                                onClick={() => {
-                                    setIsOpen(true);
-                                }}
-                            />
-                        </div>
-                    </nav>
-                ) : (
-                    <nav className="nav-opened">
+                <div className="bar">
+                    <div className="icon">
+                        <FontAwesomeIcon
+                            icon={faBars}
+                            onClick={() => {
+                                setIsOpen(true);
+                            }}
+                        />
+                    </div>
+                    <Auth />
+                </div>
+                {isOpen ? (
+                    <nav>
                         <div className="icon">
                             <FontAwesomeIcon
                                 icon={faX}
@@ -32,15 +32,13 @@ export default function Header() {
                             />
                         </div>
                         <hr />
-                        <Auth />
-                        <hr />
                         <div className="nav-item">
                             <Link href="/">
                                 <a>Home</a>
                             </Link>
                         </div>
                     </nav>
-                )}
+                ) : null}
             </div>
         </header>
     );
