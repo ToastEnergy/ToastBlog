@@ -39,6 +39,7 @@ export default function Comments({ articleID }: Props) {
             let { data, error } = await supabase
                 .from("comments")
                 .select("*, users ( * )")
+                .eq("article", articleID)
                 .order("created_at", { ascending: false });
             !data ? (data = []) : data;
             setComments(data);
