@@ -58,7 +58,11 @@ export default function Comments({ articleID }: Props) {
                             <button type="submit">Add comment</button>
                         </form>
                     </div>
-                ) : null}
+                ) : (
+                    <div className="not-logged">
+                        <p>Login to comment</p>
+                    </div>
+                )}
                 <div className="comments">
                     {comments.map((comment, index) => {
                         return (
