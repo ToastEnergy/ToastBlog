@@ -44,7 +44,6 @@ a {
 }
 
 .header-child {
-
     .bar {
         display: flex;
         align-items: center;
@@ -144,7 +143,7 @@ a {
         margin: 0;
 
         p {
-            font-size: 13px;
+            font-size: 15px;
         }
     }
 }
@@ -171,7 +170,7 @@ a {
     }
 }
 
-.user {
+.user-page {
     margin-top: 70px;
     margin-bottom: 50px;
     display: flex;
@@ -202,14 +201,15 @@ a {
         }
 
         .editor {
-            background-color: #F8AE57;
+            background-color: #f8ae57;
         }
 
         .reader {
             background-color: #3fe66e;
         }
 
-        .editor, .reader {
+        .editor,
+        .reader {
             text-shadow: 1px 1px 2px black;
             padding: 2px;
             border-radius: 5px;
@@ -226,7 +226,7 @@ a {
             }
 
             span {
-                opacity: .5;
+                opacity: 0.5;
             }
         }
 
@@ -234,5 +234,100 @@ a {
             margin: 8px 0;
             gap: 25px;
         }
+    }
+}
+
+.comments-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.comments-child {
+    width: 90vw;
+    max-width: 500px;
+}
+
+.add-comment {
+    width: 100%;
+    margin-bottom: 50px;
+
+    form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+
+        textarea {
+            background-color: $color2;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            box-shadow: 4px 4px 5px black;
+            color: unset;
+            font-family: unset;
+            width: calc(100% - 20px);
+            height: 100px;
+            padding: 10px;
+            resize: none;
+            font-size: 15px;
+        }
+
+        button {
+            background-color: $color2;
+            border: none;
+            outline: none;
+            border-radius: 5px;
+            box-shadow: 4px 4px 5px black;
+            color: unset;
+            font-family: unset;
+            cursor: pointer;
+            height: 50px;
+        }
+    }
+}
+
+.comments {
+    .comment {
+        display: flex;
+        gap: 10px;
+
+        img {
+            border-radius: 50%;
+        }
+
+        .date {
+            opacity: 0.6;
+            margin-top: 0;
+            margin-bottom: 2px;
+        }
+
+        .username {
+            margin: 0;
+            opacity: 0.4;
+
+            a {
+                cursor: pointer;
+            }
+        }
+
+        .body {
+            margin-bottom: 0;
+            line-break: anywhere;
+        }
+
+        .left {
+            width: 10%;
+        }
+
+        .right {
+            width: 90%;
+        }
+    }
+
+    hr {
+        border: 1px solid RGBA(255, 255, 255, 0.2);
+        margin: 20px 0;
     }
 }

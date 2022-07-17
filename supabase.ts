@@ -13,6 +13,7 @@ export interface ArticleProps {
     title: string;
     body: string;
     url: string;
+    id: number;
     users: {
         id: string;
         name: string;

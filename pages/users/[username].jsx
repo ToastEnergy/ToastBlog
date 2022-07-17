@@ -23,7 +23,7 @@ export default function User({ user }) {
     }, [loaded]);
 
     return (
-        <div className="user">
+        <div className="user-page">
             <Meta
                 title={user.name}
                 rawDescription={user.name + " profile on the Toast Energy Blog"}

@@ -2,9 +2,10 @@ import { supabase, getArticles, ArticleProps } from "../../supabase";
 import DefaultErrorPage from "next/error";
 import Article from "../../components/Article";
 import ArticleMeta from "../../components/ArticleMeta";
+import Comments from "../../components/Comments";
 
 interface Props {
-    article: string;
+    article: ArticleProps;
     error: boolean;
 }
 
@@ -17,12 +18,13 @@ export default function ArticlePage({ article, error }: Props) {
         <>
             <ArticleMeta article={article} />
             <Article article={article} />
+            <Comments articleID={article.id} />
         </>
     );
 }
 
 export async function getStaticProps({ params }: { params: { url: string } }) {
-    const articles: Array<ArticleProps> = await getArticles(params.url);
+    const articles: Array<ArticleProps> = await getArticles(params.url, null);
     if (articles.length === 0) {
         return { notFound: true };
     }
