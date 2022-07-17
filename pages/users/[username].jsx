@@ -18,7 +18,7 @@ export default function User({ user }) {
     };
 
     useEffect(() => {
-        ga();
+        if (user.editor) ga();
         setLoaded(true);
     }, [loaded]);
 
@@ -60,20 +60,28 @@ export default function User({ user }) {
                         })}
                     </p>
                 </div>
-                <div className="option">
-                    <span>articles</span>
-                    {articles ? (
-                        <div className="articles">
-                            {articles.map((article, index) => {
-                                return (
-                                    <Article key={index} article={article} preview={true} />
-                                );
-                            })}
-                        </div>
-                    ) : (
-                        <Loading />
-                    )}
-                </div>
+                {user.editor ? (
+                    <div className="option">
+                        <span>articles</span>
+                        {articles ? (
+                            <div className="articles">
+                                {articles.map((article, index) => {
+                                    return (
+                                        <Article
+                                            key={index}
+                                            article={article}
+                                            preview={true}
+                                        />
+                                    );
+                                })}
+                            </div>
+                        ) : (
+                            <div className="articles">
+                                <Loading />
+                            </div>
+                        )}
+                    </div>
+                ) : null}
             </div>
         </div>
     );
