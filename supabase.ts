@@ -22,8 +22,16 @@ export interface ArticleProps {
     };
 }
 
-export async function getArticles(url: string | undefined) {
-    if (url) {
+export async function getArticles(url: string | null | undefined, user: string | null | undefined) {
+    if (user) {
+        const { data, error } = await supabase
+            .from("articles")
+            .select("*, users ( * )")
+            .eq("author", user)
+            .order("created_at", { ascending: false });
+        const articles: Array<ArticleProps> = data ? data : [];
+        return articles;
+    } else if (url) {
         const { data, error } = await supabase
             .from("articles")
             .select("*, users ( * )")

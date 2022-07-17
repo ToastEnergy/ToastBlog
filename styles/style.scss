@@ -170,3 +170,66 @@ a {
         cursor: pointer;
     }
 }
+
+.user {
+    margin-top: 70px;
+    margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .info {
+        width: 300px;
+
+        .avatar {
+            display: flex;
+            justify-content: center;
+
+            img {
+                border-radius: 50%;
+            }
+        }
+
+        .name {
+            margin-top: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+
+            h1 {
+                margin: 0;
+            }
+        }
+
+        .editor {
+            background-color: #F8AE57;
+        }
+
+        .reader {
+            background-color: #8be2a4;
+        }
+
+        .editor, .reader {
+            padding: 2px;
+            border-radius: 5px;
+        }
+
+        .option {
+            margin-top: 50px;
+
+            p {
+                margin-top: 8px;
+                margin-bottom: 0;
+            }
+
+            span {
+                opacity: .5;
+            }
+        }
+
+        .articles {
+            margin: 8px 0;
+            gap: 25px;
+        }
+    }
+}

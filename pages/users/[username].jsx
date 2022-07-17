@@ -1,21 +1,20 @@
-import { supabase } from "../../supabase";
+import { supabase, getArticles } from "../../supabase";
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Loading from "../../components/Loading";
 import Meta from "../../components/Meta";
+import Article from "../../components/Article";
 
-export default function User({ user, canEdit }) {
+export default function User({ user }) {
     const [loaded, setLoaded] = useState(false);
     const [articles, setArticles] = useState(null);
 
+    const joined = new Date(user.created_at);
+
     const ga = async () => {
-        const { data: articles, error } = await supabase
-            .from("articles")
-            .select("title, url")
-            .eq("author", user.id)
-            .order("created_at", { ascending: false });
-        setArticles(articles);
+        const articles_ = await getArticles(null, user.id);
+        setArticles(articles_);
     };
 
     useEffect(() => {
@@ -24,36 +23,57 @@ export default function User({ user, canEdit }) {
     }, [loaded]);
 
     return (
-        <div>
-            <Meta title={user.name} rawDescription={user.name + " profile on the Toast Energy Blog"} />
+        <div className="user">
+            <Meta
+                title={user.name}
+                rawDescription={user.name + " profile on the Toast Energy Blog"}
+            />
             <div className="info">
-                <Image
-                    src={user.avatar}
-                    alt="Profile Picture"
-                    width={100}
-                    height={100}
-                />
-                <h1>{user.name}</h1>
-                <p>@{user.username}</p>
-                {user.editor ? <span>editor</span> : null}
-            </div>
-            <div className="articles">
-                <h2>articles by {user.name}</h2>
-                {articles ? (
-                    <ul>
-                        {articles.map((article, index) => {
-                            return (
-                                <li key={index}>
-                                    <Link href={"/articles/" + article.url}>
-                                        <a>{article.title}</a>
-                                    </Link>
-                                </li>
-                            );
+                <div className="avatar">
+                    <Image
+                        src={user.avatar}
+                        alt="Profile Picture"
+                        width={100}
+                        height={100}
+                    />
+                </div>
+                <div className="name">
+                    <h1>{user.name}</h1>{" "}
+                    {user.editor ? (
+                        <span className="editor">editor</span>
+                    ) : (
+                        <span className="reader">reader</span>
+                    )}
+                </div>
+                <div className="option">
+                    <span>username</span>
+                    <p>@{user.username}</p>
+                </div>
+                <div className="option">
+                    <span>joined</span>
+                    <p>
+                        {joined.toLocaleDateString("en-US", {
+                            weekday: "long",
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
                         })}
-                    </ul>
-                ) : (
-                    <Loading />
-                )}
+                    </p>
+                </div>
+                <div className="option">
+                    <span>articles</span>
+                    {articles ? (
+                        <div className="articles">
+                            {articles.map((article, index) => {
+                                return (
+                                    <Article key={index} article={article} preview={true} />
+                                );
+                            })}
+                        </div>
+                    ) : (
+                        <Loading />
+                    )}
+                </div>
             </div>
         </div>
     );
@@ -62,7 +82,7 @@ export default function User({ user, canEdit }) {
 export async function getStaticProps({ params }) {
     const { data: users, error } = await supabase
         .from("users")
-        .select("name, username, avatar, editor, id")
+        .select("*")
         .eq("username", params.username);
 
     return {
