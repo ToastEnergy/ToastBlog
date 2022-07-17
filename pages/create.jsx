@@ -37,6 +37,7 @@ export default function Create() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                "Authorization": supabase.auth.session().access_token
             },
             body: JSON.stringify({
                 article: {

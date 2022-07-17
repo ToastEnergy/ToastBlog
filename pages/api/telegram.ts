@@ -1,7 +1,20 @@
 import type { NextApiRequest, NextApiResponse } from "next";
+import { supabase } from '../../supabase'
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === "POST") {
+        const { user, error } = await supabase.auth.api.getUser(
+            req.headers.authorization!,
+        )
+        console.log(user,error)
+        if(error){
+            return res.status(401).json({error: error.message})
+        }
+        const { data } = await supabase.from("users").select("editor").eq("id", user!.id)
+        if(!data || !data[0].editor){
+            return res.status(403).json({error: "You are not an editor"})
+        }
+        console.log(data)
         await fetch(
             `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`,
             {
