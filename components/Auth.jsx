@@ -52,7 +52,7 @@ export default function Auth() {
     if (user) {
         return (
             <div className="auth">
-                <Image src={user.avatar} width={40} height={40} />
+                <Image alt="Avatar" src={user.avatar} width={40} height={40} />
             </div>
         );
     }

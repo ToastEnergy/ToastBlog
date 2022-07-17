@@ -75,6 +75,7 @@ export default function Comments({ articleID }: Props) {
                                                     src={comment.users.avatar}
                                                     width="45"
                                                     height="45"
+                                                    alt="Avatar"
                                                 />
                                             </a>
                                         </Link>
