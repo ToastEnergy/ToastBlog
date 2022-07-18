@@ -3,6 +3,7 @@ import { supabase } from "../supabase";
 import { useSelector, useDispatch } from "react-redux";
 import { setUser } from "../slice";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Auth() {
     const dispatch = useDispatch();
@@ -56,7 +57,16 @@ export default function Auth() {
     if (user) {
         return (
             <div className="auth">
-                <Image alt="Avatar" src={user.avatar} width={40} height={40} />
+                <Link href="/account">
+                    <a>
+                        <Image
+                            alt="Avatar"
+                            src={user.avatar}
+                            width={40}
+                            height={40}
+                        />
+                    </a>
+                </Link>
             </div>
         );
     }

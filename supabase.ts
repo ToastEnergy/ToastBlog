@@ -9,21 +9,26 @@ const supabaseKey: string = process.env.SUPABASE_ANON_KEY
 
 export const supabase = createClient(supabaseUrl, supabaseKey);
 
+export interface UserType {
+    id: string;
+    name: string;
+    avatar: string;
+    username: string;
+    editor: boolean;
+}
+
 export interface ArticleProps {
     title: string;
     body: string;
     url: string;
     id: number;
-    users: {
-        id: string;
-        name: string;
-        avatar: string;
-        username: string;
-        editor: boolean;
-    };
+    users: UserType;
 }
 
-export async function getArticles(url: string | null | undefined, user: string | null | undefined) {
+export async function getArticles(
+    url: string | null | undefined,
+    user: string | null | undefined
+) {
     if (user) {
         const { data, error } = await supabase
             .from("articles")
