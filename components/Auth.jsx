@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { supabase } from "../supabase";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser, resetUser } from "../slice";
-import Image from 'next/image';
+import { setUser } from "../slice";
+import Image from "next/image";
 
 export default function Auth() {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.slice.user);
+    const user = useSelector((state) => state.slice.user);
 
     async function getUser(user) {
         const { data, error } = await supabase
@@ -36,10 +36,14 @@ export default function Auth() {
                 dispatch(setUser(u));
             }
         }
-        loadUser();
+        if (location.pathname != "/logout") {
+            loadUser();
+        }
     }, []);
 
     async function signInWithGithub() {
+        localStorage.setItem("redirect", location.pathname);
+
         const { user, session, error } = await supabase.auth.signIn(
             {
                 provider: "github",
