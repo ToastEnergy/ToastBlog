@@ -95,11 +95,19 @@ export default function Account() {
                             ) : (
                                 <button type="submit">Save</button>
                             )}
-                            <Link href="/logout">
-                                <a className="logout">Logout</a>
-                            </Link>
                         </div>
                     </form>
+                    <div>
+                        <Link href="/logout">
+                            <a className="logout">Logout</a>
+                        </Link>
+                    </div>
+                    <br />
+                    <div className="public-profile">
+                        <Link href={"/users/" + user.username}>
+                            <a className="public-profile">Public Profile</a>
+                        </Link>
+                    </div>
                 </div>
             ) : (
                 <p>you must be logged in to access this page</p>
