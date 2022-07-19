@@ -22,6 +22,7 @@ export default function Article({ article, preview = false }) {
                     </a>
                 </Link>
             ) : null}
+            <p className="date">{new Date(article.created_at).toDateString() }</p>
             <Link href={"/users/" + article.users.username}>
                 <a className="author">@{article.users.username}</a>
             </Link>
