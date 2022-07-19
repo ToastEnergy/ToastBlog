@@ -380,6 +380,11 @@ a {
         width: 150px;
     }
 
+    input[type="checkbox"] {
+        width: unset;
+        margin-left: 20px;
+    }
+
     input,
     button,
     a {
@@ -392,6 +397,14 @@ a {
         box-shadow: 2px 2px 2px black;
         font-size: 15px;
         outline: none;
+    }
+
+    .avatar img {
+        border-radius: 50%;
+    }
+
+    .avatar-input {
+        width: 300px;
     }
 
     button {

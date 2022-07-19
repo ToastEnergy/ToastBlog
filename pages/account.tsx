@@ -4,6 +4,7 @@ import { supabase, UserType } from "../supabase";
 import { useState } from "react";
 import Loading from "../components/Loading";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Account() {
     const user = useSelector(
@@ -21,16 +22,61 @@ export default function Account() {
         };
     }
 
+    async function deleteOldAvatar() {
+        let oldAvatar = user!.avatar.split("/").pop();
+        /* @ts-ignore */
+        await supabase.storage.from("avatars").remove([oldAvatar]);
+    }
+
     async function handleForm(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setIsLoading(true);
         const target = e.target as HTMLFormElement;
+        console.log(supabase.auth.user());
 
-        let edited = false;
+        let edited: boolean = false;
+        let avatar: string = user!.avatar;
 
         for (const key in defaultValues) {
             if (defaultValues[key] != target[key].value) {
                 edited = true;
+            }
+        }
+
+        if (target.resetAvatar.checked) {
+            await deleteOldAvatar();
+            avatar = supabase.auth.user()?.user_metadata?.avatar_url;
+            edited = true;
+        } else {
+            if (target.avatar.files[0]) {
+                if (
+                    ["png", "jpg", "jpeg", "gif", "webp"].includes(
+                        target.avatar.files[0].name
+                            .split(".")
+                            .pop()
+                            .toLowerCase()
+                    )
+                ) {
+                    edited = true;
+                    await deleteOldAvatar();
+
+                    const ext = target.avatar.files[0].name.split(".").pop();
+                    const filename = `${user!.username}-${Date.now()}.${ext}`;
+                    const { data, error } = await supabase.storage
+                        .from("avatars")
+                        .upload(filename, target.avatar.files[0], {
+                            cacheControl: "3600",
+                            upsert: false,
+                        });
+
+                    const { data: avatarData, error: avatarError } =
+                        await supabase.storage
+                            .from("avatars")
+                            .getPublicUrl(filename);
+                    avatar = avatarData!.publicURL;
+                } else {
+                    alert("Invalid file type");
+                }
             }
         }
 
@@ -39,7 +85,7 @@ export default function Account() {
                 .from("users")
                 .select("*")
                 .eq("username", target.username.value);
-            if (userCheck!.length > 0) {
+            if (userCheck!.length > 0 && userCheck![0].id != user!.id) {
                 alert("Username already exists");
                 setIsLoading(false);
                 return;
@@ -50,6 +96,7 @@ export default function Account() {
                 .update({
                     name: target.name_.value,
                     username: target.username.value,
+                    avatar: avatar,
                 })
                 .match({
                     id: user!.id,
@@ -66,8 +113,38 @@ export default function Account() {
         <div className="account">
             {user ? (
                 <div>
-                    <form onSubmit={handleForm}>
+                    <form onSubmit={handleForm} encType="multipart/form-data">
                         <div className="options">
+                            <div className="option">
+                                <div className="avatar">
+                                    <Image
+                                        src={user.avatar}
+                                        alt="Avatar"
+                                        width={50}
+                                        height={50}
+                                    />
+                                </div>
+                                <label htmlFor="avatar">Avatar</label>
+                                <input
+                                    id="avatar"
+                                    type="file"
+                                    name="avatar"
+                                    accept="image/*"
+                                    className="avatar-input"
+                                />
+                            </div>
+                            <div className="option">
+                                <div>
+                                    <label htmlFor="resetAvatar">
+                                        Reset to GitHub Avatar
+                                    </label>
+                                    <input
+                                        id="resetAvatar"
+                                        name="resetAvatar"
+                                        type="checkbox"
+                                    />
+                                </div>
+                            </div>
                             <div className="option">
                                 <label htmlFor="name">Name</label>
                                 <input

@@ -9,7 +9,7 @@ const nextConfig = {
     TELEGRAM_CHAT_ID: process.env.TELEGRAM_CHAT_ID,
   },
   images: {
-    domains: ['avatars.githubusercontent.com'],
+    domains: ['avatars.githubusercontent.com', 'qwvshtdixywuubtgubyv.supabase.co'],
   },
 }
 
