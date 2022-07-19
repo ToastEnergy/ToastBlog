@@ -34,6 +34,7 @@ export default function Account() {
         const target = e.target as HTMLFormElement;
 
         let edited: boolean = false;
+        let errored: boolean = false;
         let avatar: string = user!.avatar;
 
         for (const key in defaultValues) {
@@ -56,6 +57,7 @@ export default function Account() {
                             .toLowerCase()
                     )
                 ) {
+                    if (target.avatar.files[0].size <= 5242880) {
                     edited = true;
                     await deleteOldAvatar();
 
@@ -73,8 +75,13 @@ export default function Account() {
                             .from("avatars")
                             .getPublicUrl(filename);
                     avatar = avatarData!.publicURL;
+                    } else {
+                        alert("Avatar is too big (Max 5MB)");
+                        errored = true;
+                    }
                 } else {
-                    alert("Invalid file type");
+                    alert("Invalid file type, only PNG, JPG, JPEG, GIF, and WEBP");
+                    errored = true;
                 }
             }
         }
@@ -114,7 +121,7 @@ export default function Account() {
             })
         } else {
             setIsLoading(false);
-            alert("No changes made");
+            if (!errored) alert("No changes made");
         }
     }
 
