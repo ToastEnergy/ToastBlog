@@ -336,6 +336,21 @@ a {
 
         .right {
             width: 90%;
+
+            .top-right {
+                display: flex;
+                gap: 15px;
+
+                button {
+                    cursor: pointer;
+                    background-color: $color2;
+                    border: none;
+                    padding: 5px;
+                    border-radius: 5px;
+                    font-family: unset;
+                    box-shadow: 2px 2px 2px black;
+                }
+            }
         }
     }
 

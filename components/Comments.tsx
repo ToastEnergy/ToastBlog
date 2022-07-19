@@ -18,7 +18,6 @@ export default function Comments({ articleID }: Props) {
 
     async function sendComment(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-        console.log(comments);
         const target = e.target as HTMLFormElement;
         const commentBody: string = target.body.value;
         target.body.value = "";
@@ -48,13 +47,22 @@ export default function Comments({ articleID }: Props) {
         setLoaded(true);
     }, [loaded]);
 
+    async function deleteComment(id: number) {
+        await supabase.from("comments").delete().match({ id: id });
+        setComments(comments.filter((comment) => comment.id != id));
+    }
+
     return (
         <div className="comments-section">
             <div className="comments-child">
                 {user ? (
                     <div className="add-comment">
                         <form onSubmit={sendComment}>
-                            <textarea placeholder="Comment..." name="body" required />
+                            <textarea
+                                placeholder="Comment..."
+                                name="body"
+                                required
+                            />
                             <button type="submit">Add comment</button>
                         </form>
                     </div>
@@ -86,27 +94,50 @@ export default function Comments({ articleID }: Props) {
                                         </Link>
                                     </div>
                                     <div className="right">
-                                        <p className="date">
-                                            {new Date(
-                                                comment.created_at
-                                            ).toLocaleString("en-US", {
-                                                year: "numeric",
-                                                month: "short",
-                                                day: "numeric",
-                                                hour: "numeric",
-                                                minute: "numeric",
-                                            })}
-                                        </p>
-                                        <Link
-                                            href={
-                                                "/users/" +
-                                                comment.users.username
-                                            }
-                                        >
-                                            <p className="username">
-                                                <a>@{comment.users.username}</a>
-                                            </p>
-                                        </Link>
+                                        <div className="top-right">
+                                            <div className="top-right-left">
+                                                <p className="date">
+                                                    {new Date(
+                                                        comment.created_at
+                                                    ).toLocaleString("en-US", {
+                                                        year: "numeric",
+                                                        month: "short",
+                                                        day: "numeric",
+                                                        hour: "numeric",
+                                                        minute: "numeric",
+                                                    })}
+                                                </p>
+                                                <Link
+                                                    href={
+                                                        "/users/" +
+                                                        comment.users.username
+                                                    }
+                                                >
+                                                    <p className="username">
+                                                        <a>
+                                                            @
+                                                            {
+                                                                comment.users
+                                                                    .username
+                                                            }
+                                                        </a>
+                                                    </p>
+                                                </Link>
+                                            </div>
+                                            {comment.users.id === user?.id ? (
+                                                <div className="top-right-rigth">
+                                                    <button
+                                                        onClick={() => {
+                                                            deleteComment(
+                                                                comment.id
+                                                            );
+                                                        }}
+                                                    >
+                                                        ❌
+                                                    </button>
+                                                </div>
+                                            ) : null}
+                                        </div>
                                         <p className="body">{comment.body}</p>
                                     </div>
                                 </div>
