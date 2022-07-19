@@ -32,7 +32,6 @@ export default function Account() {
         e.preventDefault();
         setIsLoading(true);
         const target = e.target as HTMLFormElement;
-        console.log(supabase.auth.user());
 
         let edited: boolean = false;
         let avatar: string = user!.avatar;
@@ -103,6 +102,16 @@ export default function Account() {
                 });
             dispatch(setUser(data![0]));
             setIsLoading(false);
+            await fetch('/api/revalidate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": supabase.auth.session()!.access_token
+                },
+                body: JSON.stringify({
+                   username: user!.username,
+                }),
+            })
         } else {
             setIsLoading(false);
             alert("No changes made");

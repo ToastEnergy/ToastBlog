@@ -6,13 +6,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { user, error } = await supabase.auth.api.getUser(
             req.headers.authorization!,
         )
-        if(error){
+        
+        if (error) {
             return res.status(401).json({error: error.message})
         }
+
         const { data } = await supabase.from("users").select("editor").eq("id", user!.id)
-        if(!data || !data[0].editor){
+        
+        if (!data || !data[0].editor ){
             return res.status(403).json({error: "You are not an editor"})
         }
+
         await fetch(
             `https://api.telegram.org/bot${process.env.TELEGRAM_TOKEN}/sendMessage`,
             {
