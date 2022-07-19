@@ -14,8 +14,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
         const { data: user, error: userError } = await supabase.from("users").select("username").eq("id", data!.id);
 
         if (user![0].username !== req.body.username) {
-            console.log(user![0].username );
-            console.log(req.body.username);
             return res.status(403).json({ error: "You are not the author" });
         }
         await res.revalidate('/users/' + req.body.username);
