@@ -17,7 +17,9 @@ export default function ArticlePage({ article, error }: Props) {
     return (
         <>
             <ArticleMeta article={article} />
-            <Article article={article} />
+            <div className="article-parent">
+                <Article article={article} />
+            </div>
             <Comments articleID={article.id} />
         </>
     );
