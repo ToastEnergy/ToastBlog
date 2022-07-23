@@ -457,3 +457,46 @@ a {
         }
     }
 }
+
+.create-article {
+    display: flex;
+    justify-content: center;
+
+    .form-inputs {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 50px;
+
+        input {
+            width: 250px;
+        }
+
+        textarea {
+            width: 500px;
+            height: 300px;
+        }
+
+        textarea, input, button {
+            outline: none;
+            border: none;
+            font-family: unset;
+            font-size: unset;
+            color: unset;
+        }
+
+        textarea,
+        input {
+            background: none;
+        }
+
+        button {
+            width: 100px;
+            height: 30px;
+            background-color: $color2;
+            box-shadow: 3px 3px 3px black;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    }
+}

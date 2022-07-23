@@ -1,28 +1,36 @@
 import { supabase } from "../supabase";
 import { useState, useEffect } from "react";
-import Auth from "../components/Auth";
+import { useSelector } from "react-redux";
+import Article from "../components/Article";
 
 export default function Create() {
-    const [user, setUser] = useState(null);
+    const user = useSelector((state) => state.slice.user);
+    const [article, setArticle] = useState(null);
 
     useEffect(() => {
-        const canEdit = async () => {
-            const _user = supabase.auth.user();
-            if (_user) {
-                const { data, error } = await supabase
-                    .from("users")
-                    .select("editor")
-                    .eq("id", _user.id);
-                if (data.length >= 1 && data[0].editor === true) setUser(_user);
-            }
-        };
-        canEdit();
-    }, []);
+        if (user) {
+            setArticle({
+                title: "",
+                body: "",
+                url: "",
+                users: user,
+            });
+        }
+    }, [user]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const url = encodeURIComponent(e.target.url.value.toLowerCase().replace(/[^a-zA-Z ]/g, "").replace(/\s\s+/g, ' ').trim().replaceAll(' ', '-') + '-' + Date.now().toString());
+        const url = encodeURIComponent(
+            e.target.url.value
+                .toLowerCase()
+                .replace(/[^a-zA-Z ]/g, "")
+                .replace(/\s\s+/g, " ")
+                .trim()
+                .replaceAll(" ", "-") +
+                "-" +
+                Date.now().toString()
+        );
         const { data, error } = await supabase.from("articles").insert({
             title: e.target.title.value,
             body: e.target.body.value,
@@ -37,7 +45,7 @@ export default function Create() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
-                "Authorization": supabase.auth.session().access_token
+                Authorization: supabase.auth.session().access_token,
             },
             body: JSON.stringify({
                 article: {
@@ -50,26 +58,40 @@ export default function Create() {
         location.href = "/articles/" + url;
     };
 
+    const updatePreview = (option, value) => {
+        let a = article;
+        a[option] = value;
+        setArticle(a);
+    }
+
     return (
-        <div>
-            {user ? (
+        <div className="create-article">
+            {user && user.editor ? (
                 <div>
                     <form onSubmit={handleSubmit}>
                         <div className="form-inputs">
                             <input
                                 type="text"
                                 name="title"
-                                placeholder="Article Title"
+                                placeholder="Title"
+                                required
                             />
                             <input
                                 type="text"
                                 name="url"
-                                placeholder="Article Url"
+                                placeholder="Url"
+                                required
                             />
-                            <textarea name="body" placeholder="Article Body" />
-                            <button type="submit">submit</button>
+                            <textarea
+                                name="body"
+                                placeholder="Content, supports markdown"
+                                required
+                            />
+                            <button type="submit">Publish</button>
                         </div>
                     </form>
+                    <div style={{height: 50}}></div>
+                    {article ? <Article article={article} preview={true} /> : null}
                 </div>
             ) : (
                 <p>nope</p>
