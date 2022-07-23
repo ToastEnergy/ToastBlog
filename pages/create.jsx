@@ -2,21 +2,14 @@ import { supabase } from "../supabase";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Article from "../components/Article";
+import Loading from "../components/Loading";
 
 export default function Create() {
     const user = useSelector((state) => state.slice.user);
-    const [article, setArticle] = useState(null);
-
-    useEffect(() => {
-        if (user) {
-            setArticle({
-                title: "",
-                body: "",
-                url: "",
-                users: user,
-            });
-        }
-    }, [user]);
+    const [articleTitle, setArticleTitle] = useState("");
+    const [articleBody, setArticleBody] = useState("");
+    const [articleUrl, setArticleUrl] = useState("");
+    const [loadingMessage, setLoadingMessage] = useState(null);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -31,6 +24,8 @@ export default function Create() {
                 "-" +
                 Date.now().toString()
         );
+
+        setLoadingMessage('Updating article to database...');
         const { data, error } = await supabase.from("articles").insert({
             title: e.target.title.value,
             body: e.target.body.value,
@@ -40,7 +35,8 @@ export default function Create() {
         });
 
         if (error) alert("There was an error creating the article");
-        e.target.body.value = "";
+
+        setLoadingMessage('Sending article to Telegram...');
         await fetch("/api/telegram", {
             method: "POST",
             headers: {
@@ -55,44 +51,80 @@ export default function Create() {
                 author: supabase.auth.user().user_metadata.user_name,
             }),
         });
+        setLoadingMessage('Redirecting you to article...');
         location.href = "/articles/" + url;
     };
-
-    const updatePreview = (option, value) => {
-        let a = article;
-        a[option] = value;
-        setArticle(a);
-    }
 
     return (
         <div className="create-article">
             {user && user.editor ? (
-                <div>
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-inputs">
-                            <input
-                                type="text"
-                                name="title"
-                                placeholder="Title"
-                                required
-                            />
-                            <input
-                                type="text"
-                                name="url"
-                                placeholder="Url"
-                                required
-                            />
-                            <textarea
-                                name="body"
-                                placeholder="Content, supports markdown"
-                                required
-                            />
-                            <button type="submit">Publish</button>
+                <>
+                    {loadingMessage ? (
+                        <div className="uploading-article">
+                            <p>{loadingMessage}</p>
+                            <Loading />
                         </div>
-                    </form>
-                    <div style={{height: 50}}></div>
-                    {article ? <Article article={article} preview={true} /> : null}
-                </div>
+                    ) : (
+                        <div>
+                            <form onSubmit={handleSubmit}>
+                                <div className="parent-form-inputs">
+                                    <div className="form-inputs">
+                                        <label htmlFor="title">
+                                            <b>Title</b>
+                                        </label>
+                                        <input
+                                            id="title"
+                                            type="text"
+                                            name="title"
+                                            placeholder="Type here..."
+                                            onChange={(e) =>
+                                                setArticleTitle(e.target.value)
+                                            }
+                                            required
+                                        />
+                                        <label htmlFor="url">
+                                            <b>URL</b>
+                                        </label>
+                                        <input
+                                            id="url"
+                                            type="text"
+                                            name="url"
+                                            placeholder="Type here..."
+                                            onChange={(e) =>
+                                                setArticleUrl(e.target.value)
+                                            }
+                                            required
+                                        />
+                                        <label htmlFor="body">
+                                            <b>Body</b>
+                                        </label>
+                                        <textarea
+                                            id="body"
+                                            name="Type here..."
+                                            placeholder="Type here, supports markdown..."
+                                            onChange={(e) =>
+                                                setArticleBody(e.target.value)
+                                            }
+                                            required
+                                        />
+                                        <button type="submit">Publish</button>
+                                    </div>
+                                </div>
+                            </form>
+                            <div style={{ height: 50 }}></div>
+                            <Article
+                                article={{
+                                    title: articleTitle,
+                                    body: articleBody,
+                                    url: articleUrl,
+                                    users: user,
+                                    created_at: Date.now(),
+                                }}
+                                preview={true}
+                            />
+                        </div>
+                    )}
+                </>
             ) : (
                 <p>nope</p>
             )}

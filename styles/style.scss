@@ -127,7 +127,8 @@ a {
 
 .full {
     padding: 20px;
-    width: 800px;
+    width: calc(100vw - 40px);
+    max-width: 800px;
 }
 
 .article {
@@ -462,27 +463,39 @@ a {
     display: flex;
     justify-content: center;
 
+    .parent-form-inputs {
+        display: flex;
+        justify-content: center;
+    }
+
     .form-inputs {
         display: flex;
         flex-direction: column;
         gap: 15px;
         margin-top: 50px;
+        width: 90vw;
+        max-width: 500px;
 
         input {
-            width: 250px;
+            width: 100%;
+            max-width: 250px;
         }
 
         textarea {
-            width: 500px;
+            width: 100%;
+            max-width: 500px;
             height: 300px;
         }
 
-        textarea, input, button {
+        textarea,
+        input,
+        button {
             outline: none;
             border: none;
             font-family: unset;
             font-size: unset;
             color: unset;
+            padding: 0;
         }
 
         textarea,
@@ -499,4 +512,11 @@ a {
             cursor: pointer;
         }
     }
+}
+
+.uploading-article {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

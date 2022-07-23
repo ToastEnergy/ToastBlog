@@ -26,7 +26,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
                 },
                 body: JSON.stringify({
                     chat_id: process.env.TELEGRAM_CHAT_ID,
-                    text: `*[${req.body.article.title}](https://blog.toastenergy.xyz/articles/${req.body.article.url})*\n\n_by [@${req.body.author}](https://blog.toastenergy.xyz/users/${req.body.author})_`,
+                    text: `*[${req.body.article.title}](https://t.me/iv?url=${encodeURI('https://blog.toastenergy.xyz/articles/' + req.body.article.url)}&rhash=64b7460d81df62)*\n\n_by [@${req.body.author}](https://blog.toastenergy.xyz/users/${req.body.author})_`,
                     parse_mode: "MarkdownV2",
                 }),
             }
