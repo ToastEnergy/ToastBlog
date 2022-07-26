@@ -22,7 +22,7 @@ export default function Account() {
         };
     }
 
-    async function deleteOldAvatar() {
+    async function purgeAvatar() {
         let oldAvatar = user!.avatar.split("/").pop();
         /* @ts-ignore */
         await supabase.storage.from("avatars").remove([oldAvatar]);
@@ -44,30 +44,25 @@ export default function Account() {
         }
 
         if (target.resetAvatar.checked) {
-            await deleteOldAvatar();
+            await purgeAvatar();
             avatar = supabase.auth.user()?.user_metadata?.avatar_url;
             edited = true;
         } else {
             if (target.avatar.files[0]) {
+                console.log(target.avatar.files[0])
                 if (
-                    ["png", "jpg", "jpeg", "gif", "webp"].includes(
-                        target.avatar.files[0].name
-                            .split(".")
-                            .pop()
-                            .toLowerCase()
+                    ["image/png", "image/jpeg", "image/gif", "image/webp"].includes(
+                        target.avatar.files[0].type
                     )
                 ) {
                     if (target.avatar.files[0].size <= 5242880) {
                     edited = true;
-                    await deleteOldAvatar();
-
-                    const ext = target.avatar.files[0].name.split(".").pop();
-                    const filename = `${user!.username}-${Date.now()}.${ext}`;
+                    const filename = `${user!.id}`;
                     const { data, error } = await supabase.storage
                         .from("avatars")
                         .upload(filename, target.avatar.files[0], {
                             cacheControl: "3600",
-                            upsert: false,
+                            upsert: true,
                         });
 
                     const { data: avatarData, error: avatarError } =
