@@ -59,7 +59,7 @@ export default function Account() {
                     await deleteOldAvatar();
 
                     const ext = target.avatar.files[0].name.split(".").pop();
-                    const filename = `${user!.username}-${Date.now()}.${ext}`;
+                    const filename = `${user!.id}-${Date.now()}.${ext}`;
                     const { data, error } = await supabase.storage
                         .from("avatars")
                         .upload(filename, target.avatar.files[0], {
