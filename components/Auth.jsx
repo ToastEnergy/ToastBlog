@@ -14,7 +14,7 @@ export default function Auth() {
             .from("users")
             .select("*")
             .eq("id", user.id);
-        if (error) alert(error.message);
+        if (error) console.error(error);
 
         if (!data || data.length === 0) {
             const { data, error } = await supabase.from("users").insert({
@@ -24,6 +24,7 @@ export default function Auth() {
                 name: user.user_metadata.name,
                 avatar: user.user_metadata.avatar_url,
             });
+            if (error) console.error(error);
             return data[0];
         }
         return data[0];
