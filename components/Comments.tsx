@@ -107,22 +107,14 @@ export default function Comments({ articleID }: Props) {
                                                         minute: "numeric",
                                                     })}
                                                 </p>
-                                                <Link
-                                                    href={
-                                                        "/users/" +
-                                                        comment.users.username
-                                                    }
-                                                >
-                                                    <p className="username">
-                                                        <a>
-                                                            @
-                                                            {
-                                                                comment.users
-                                                                    .username
-                                                            }
-                                                        </a>
-                                                    </p>
+
+                                                <p className="username">
+                                                <Link href={"/users/"+ comment.users.username }>
+                                                <a>
+                                                    @{comment.users.username}
+                                                </a>
                                                 </Link>
+                                                </p>
                                             </div>
                                             {comment.users.id === user?.id ? (
                                                 <div className="top-right-rigth">
