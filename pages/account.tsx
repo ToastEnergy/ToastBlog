@@ -50,11 +50,8 @@ export default function Account() {
         } else {
             if (target.avatar.files[0]) {
                 if (
-                    ["png", "jpg", "jpeg", "gif", "webp"].includes(
-                        target.avatar.files[0].name
-                            .split(".")
-                            .pop()
-                            .toLowerCase()
+                    ["image/png", "image/jpeg", "image/gif", "image/webp"].includes(
+                        target.avatar.files[0].type
                     )
                 ) {
                     if (target.avatar.files[0].size <= 5242880) {
