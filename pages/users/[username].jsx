@@ -1,10 +1,10 @@
 import { supabase, getArticles } from "../../supabase";
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import Loading from "../../components/Loading";
-import Meta from "../../components/Meta";
 import Article from "../../components/Article";
+import { NextSeo } from "next-seo";
+import { SocialProfileJsonLd } from "next-seo";
 
 export default function User({ user }) {
     const [loaded, setLoaded] = useState(false);
@@ -24,10 +24,33 @@ export default function User({ user }) {
 
     return (
         <div className="user-page">
-            <Meta
+            <NextSeo
                 title={user.name}
-                rawDescription={user.name + " profile on the Toast Energy Blog"}
-                keywords={`${user.name}, ${user.username}, @${user.username}`}
+                description={user.name + " profile on the Toast Energy Blog"}
+                canonical={`https://toastenergy.com/users/${user.username}`}
+                additionalMetaTags={[
+                    {
+                        name: "keywords",
+                        content: `${user.name}, ${user.username}, @${user.username}`,
+                    },
+                ]}
+                openGraph={{
+                    url: "https://blog.toastenergy.xyz/users/" + user.username,
+                    title: user.name,
+                    description:
+                        user.name + " profile on the Toast Energy Blog",
+                    type: "profile",
+                    locale: "en_US",
+                    profile: {
+                        firstName: user.name,
+                        username: user.username,
+                    },
+                }}
+            />
+            <SocialProfileJsonLd 
+                type="Person"
+                name={user.name}
+                url={`https://toastenergy.com/users/${user.username}`}
             />
             <div className="info">
                 <div className="avatar">

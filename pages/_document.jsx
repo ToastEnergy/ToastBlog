@@ -4,9 +4,6 @@ export default function Document() {
     return (
         <Html lang="en">
             <Head>
-                <meta property="og:locale" content="en_US" />
-                <meta property="og:site_name" content="Toast Energy Blog" />
-                <meta name="theme-color" content="#121212" />
                 <link
                     rel="apple-touch-icon"
                     sizes="57x57"
