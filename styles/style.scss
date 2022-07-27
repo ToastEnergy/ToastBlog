@@ -49,7 +49,6 @@ a {
         align-items: center;
         justify-content: space-between;
         background-color: $color2;
-        width: calc(100vw - 40px);
         height: 44px;
         padding: 5px 20px;
     }
@@ -127,7 +126,6 @@ a {
 
 .full {
     padding: 20px;
-    width: calc(100vw - 40px);
     max-width: 800px;
 }
 
@@ -135,14 +133,14 @@ a {
     line-break: normal;
 
     .author {
-        opacity: 0.3;
+        opacity: 0.8;
+        margin: 12px 0;
     }
 
     .date {
-        margin-top: 0;
-        margin-bottom: 5px;
+        margin: 0;
         font-size: 15px;
-        opacity: 0.4;
+        opacity: 0.9;
     }
 
     hr {
@@ -162,8 +160,12 @@ a {
         }
 
         a {
-            color: rgb(96, 96, 206);
+            color: rgb(177, 177, 238);
             text-decoration: underline;
+
+            &:visited {
+                color: rgb(197, 157, 230)
+            }
         }
 
         img {
@@ -248,7 +250,7 @@ a {
             flex-direction: column;
             gap: 8px;
 
-            p {
+            p:not(.author) {
                 margin: 0;
             }
 
@@ -343,7 +345,7 @@ a {
 
         .username {
             margin: 0;
-            opacity: 0.4;
+            opacity: 0.8;
 
             a {
                 cursor: pointer;

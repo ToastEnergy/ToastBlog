@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
     return (
-        <Html>
+        <Html lang="en">
             <Head>
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:site_name" content="Toast Energy Blog" />

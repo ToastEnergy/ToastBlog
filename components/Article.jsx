@@ -19,7 +19,7 @@ export default function Article({ article, preview = false }) {
                     <Link href={`/articles/${article.url}`}>
                         <a>
                             <div className="open-article">
-                                <p>Read More</p>
+                                <p>Full Article</p>
                             </div>
                         </a>
                     </Link>
@@ -27,9 +27,11 @@ export default function Article({ article, preview = false }) {
                 <p className="date">
                     {new Date(article.created_at).toDateString()}
                 </p>
-                <Link href={"/users/" + article.users.username}>
-                    <a className="author">@{article.users.username}</a>
-                </Link>
+                <p className="author">
+                    <Link href={"/users/" + article.users.username}>
+                        <a>@{article.users.username}</a>
+                    </Link>
+                </p>
                 <h1 className="title">
                     <Link href={"/articles/" + article.url}>
                         <a>{article.title}</a>
