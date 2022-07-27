@@ -122,6 +122,10 @@ a {
 .article-parent {
     display: flex;
     justify-content: center;
+
+    article {
+        width: 100vw;
+    }
 }
 
 .full {

@@ -1,12 +1,15 @@
 import Head from "next/head";
 
 export default function Meta({ article }) {
-    let description;
+    let description, keywords;
     if (article.body.length > 150) {
         description = article.body.substring(0, 150) + "...";
     } else {
         description = article.body;
     }
+
+    if (!article.keywords) keywords="";
+    else keywords = article.keywords + ", "
 
     return (
         <Head>
@@ -14,6 +17,7 @@ export default function Meta({ article }) {
             <meta name="robots" content="index, follow" />
             <meta name="description" content={description} />
             <meta name="author" content={"@" + article.users.username} />
+            <meta name="keywords" content={keywords + "toast, energy, blog, programming, programming world, toast energy, toastenergy, toast energy blog, tech blog, toast energy tech blog, programming blog, coding"} />
             <meta property="og:locale" content="en_US" />
             <meta property="og:type" content="article" />
             <meta property="og:title" content={article.title} />

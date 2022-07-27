@@ -7,10 +7,6 @@ export default function Document() {
                 <meta property="og:locale" content="en_US" />
                 <meta property="og:site_name" content="Toast Energy Blog" />
                 <meta name="theme-color" content="#121212" />
-                <meta
-                    name="keywords"
-                    content="toast, energy, blog, programming, programming world, toast energy, toastenergy, toast energy blog, tech blog, toast energy tech blog, programming blog, coding"
-                />
                 <link
                     rel="apple-touch-icon"
                     sizes="57x57"

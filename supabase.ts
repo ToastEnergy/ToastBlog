@@ -22,6 +22,7 @@ export interface ArticleProps {
     body: string;
     url: string;
     id: number;
+    keywords: string;
     users: UserType;
 }
 

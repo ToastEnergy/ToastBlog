@@ -31,6 +31,7 @@ export default function Create() {
             body: e.target.body.value,
             author: supabase.auth.user().id,
             url: url,
+            keywords: e.target.keywords.value,
             id: Date.now(),
         });
 
@@ -93,6 +94,16 @@ export default function Create() {
                                             onChange={(e) =>
                                                 setArticleUrl(e.target.value)
                                             }
+                                            required
+                                        />
+                                        <label htmlFor="keywords">
+                                            <b>Tags</b>
+                                        </label>
+                                        <input
+                                            id="keywords"
+                                            type="text"
+                                            name="keywords"
+                                            placeholder="Type here..."
                                             required
                                         />
                                         <label htmlFor="body">

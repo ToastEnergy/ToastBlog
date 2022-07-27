@@ -27,6 +27,7 @@ export default function User({ user }) {
             <Meta
                 title={user.name}
                 rawDescription={user.name + " profile on the Toast Energy Blog"}
+                keywords={`${user.name}, ${user.username}, @${user.username}`}
             />
             <div className="info">
                 <div className="avatar">
