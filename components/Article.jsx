@@ -1,6 +1,20 @@
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import React from "react";
+import Image from "next/image";
+
+const markdownComponents = {
+    img: (image) => {
+        return (
+            <Image
+                src={image.properties.src}
+                alt={image.properties.alt}
+                height="768"
+                width="432"
+            />
+        );
+    },
+};
 
 export default function Article({ article, preview = false }) {
     let body = article.body;
@@ -37,7 +51,10 @@ export default function Article({ article, preview = false }) {
                 </h1>
                 <hr />
                 <div className="body">
-                    <ReactMarkdown>{body}</ReactMarkdown>
+                    <ReactMarkdown
+                        children={body}
+                        components={markdownComponents}
+                    />
                 </div>
             </div>
         </article>
