@@ -25,6 +25,11 @@ a {
     }
 }
 
+.avatar {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
 @keyframes appear {
     0% {
         transform: translateX(-100%);
@@ -219,6 +224,7 @@ a {
 
             img {
                 border-radius: 50%;
+                object-fit: cover;
             }
         }
 
@@ -337,10 +343,6 @@ a {
         display: flex;
         gap: 10px;
 
-        img {
-            border-radius: 50%;
-        }
-
         .date {
             opacity: 0.6;
             margin-top: 0;
@@ -432,6 +434,7 @@ a {
 
     .avatar img {
         border-radius: 50%;
+        object-fit: cover;
     }
 
     .avatar-input {

@@ -89,6 +89,7 @@ export default function Comments({ articleID }: Props) {
                                                     width="45"
                                                     height="45"
                                                     alt="Avatar"
+                                                    className="avatar"
                                                 />
                                             </a>
                                         </Link>

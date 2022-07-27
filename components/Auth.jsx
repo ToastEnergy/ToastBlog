@@ -65,6 +65,7 @@ export default function Auth() {
                             src={user.avatar}
                             width={40}
                             height={40}
+                            className="avatar"
                         />
                     </a>
                 </Link>
