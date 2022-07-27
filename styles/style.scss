@@ -120,16 +120,16 @@ a {
 }
 
 .article-parent {
-    display: flex;
-    justify-content: center;
-
     article {
         width: 100vw;
+        display: flex;
+        justify-content: center;
     }
 }
 
 .full {
     padding: 20px;
+    width: 100%;
     max-width: 800px;
 }
 
