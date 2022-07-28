@@ -19,6 +19,10 @@ function MyApp({ Component, pageProps }) {
                             name: "theme-color",
                             content: "#121212",
                         },
+                        {
+                            name: "msvalidate.01",
+                            content: "3A3AA9415C89992603F3E144BB929C44",
+                        }
                     ]
                 }
                 openGraph={{
