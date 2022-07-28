@@ -35,45 +35,24 @@ export default function Likes({ articleID }: { articleID: number }) {
 
     useEffect(() => {
         async function getLikes() {
-            if (!likesData) {
+            if ((!user && guest) || (user && !guest)) {
                 const { data, error } = await supabase
                     .from("likes")
-                    .select("*")
+                    .select("user")
                     .eq("article", articleID);
-                if (data) setLikes(data.length);
-                setLikesData(data);
-            }
-
-            if (!user) {
-                if (guest) {
-                    setLiked(false);
-                    setLoaded(true);
-                } else {
-                    if (liked) setLiked(false);
-                    else setLiked(true);
-                }
-            } else {
-                if (likesData && likesData.filter((x) => x.user === user.id).length > 0) {
-                    setLiked(true);
-                } else {
-                    setLiked(false);
+                if (data) {
+                    if (user) {
+                        if (data.find((x) => x.user === user.id)) {
+                            setLiked(true);
+                        }
+                    }
+                    setLikes(data.length);
                 }
                 setLoaded(true);
             }
         }
         if (!loaded) getLikes();
-    }, [
-        loaded,
-        setLoaded,
-        user,
-        guest,
-        liked,
-        setLiked,
-        articleID,
-        supabase,
-        likesData,
-        setLikesData,
-    ]);
+    }, [loaded, setLoaded, setLiked, user, guest, articleID, setLikes]);
 
     async function like() {
         if (user) {
