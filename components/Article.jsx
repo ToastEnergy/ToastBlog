@@ -3,6 +3,29 @@ import ReactMarkdown from "react-markdown";
 import React from "react";
 import Likes from "./Likes";
 
+const MarkdownComponents = {
+    p: (paragraph) => {
+        const { node } = paragraph;
+
+        if (node.children[0].tagName === "img") {
+            const image = node.children[0];
+
+            return (
+                <div className="article-image">
+                    <img
+                        src={
+                            "/api/proxy?url=" +
+                            encodeURIComponent(image.properties.src)
+                        }
+                        alt={image.properties.alt}
+                    />
+                </div>
+            );
+        }
+        return <p>{paragraph.children}</p>;
+    },
+};
+
 export default function Article({ article, preview = false }) {
     let body = article.body;
     let button = false;
@@ -62,7 +85,9 @@ export default function Article({ article, preview = false }) {
                 </h1>
                 <hr />
                 <div className="body">
-                    <ReactMarkdown>{body}</ReactMarkdown>
+                    <ReactMarkdown components={MarkdownComponents}>
+                        {body}
+                    </ReactMarkdown>
                 </div>
             </div>
         </article>

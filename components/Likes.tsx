@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart } from "@fortawesome/free-solid-svg-icons";
-import Loading from "./Loading";
 
 export default function Likes({ articleID }: { articleID: number }) {
     const user = useSelector(
@@ -20,27 +19,33 @@ export default function Likes({ articleID }: { articleID: number }) {
             };
         }) => state.slice.guest
     );
+
+    interface Like {
+        id: number;
+        user: string;
+        article: number;
+        created_at: string;
+    }
+
     const [loaded, setLoaded] = useState<boolean>(false);
     const [loadingLike, setLoadingLike] = useState<boolean>(false);
     const [likes, setLikes] = useState<number>(0);
     const [liked, setLiked] = useState<boolean>(false);
+    const [likesData, setLikesData] = useState<Like[] | null>(null);
 
     useEffect(() => {
         async function getLikes() {
-            const { data, error } = await supabase
-                .from("likes")
-                .select("*")
-                .eq("article", articleID);
-            if (data) setLikes(data.length);
+            if (!likesData) {
+                const { data, error } = await supabase
+                    .from("likes")
+                    .select("*")
+                    .eq("article", articleID);
+                if (data) setLikes(data.length);
+                setLikesData(data);
+            }
 
             if (!user) {
                 if (guest) {
-                    const { data, error } = await supabase
-                        .from("likes")
-                        .select("*")
-                        .eq("article", articleID);
-                    if (data) setLikes(data.length);
-
                     setLiked(false);
                     setLoaded(true);
                 } else {
@@ -48,12 +53,7 @@ export default function Likes({ articleID }: { articleID: number }) {
                     else setLiked(true);
                 }
             } else {
-                const { data, error } = await supabase
-                    .from("likes")
-                    .select("*")
-                    .eq("article", articleID);
-                if (data) setLikes(data.length);
-                if (data && data.filter((x) => x.user === user.id).length > 0) {
+                if (likesData && likesData.filter((x) => x.user === user.id).length > 0) {
                     setLiked(true);
                 } else {
                     setLiked(false);
@@ -62,7 +62,18 @@ export default function Likes({ articleID }: { articleID: number }) {
             }
         }
         if (!loaded) getLikes();
-    });
+    }, [
+        loaded,
+        setLoaded,
+        user,
+        guest,
+        liked,
+        setLiked,
+        articleID,
+        supabase,
+        likesData,
+        setLikesData,
+    ]);
 
     async function like() {
         if (user) {

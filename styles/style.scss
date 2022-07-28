@@ -169,7 +169,12 @@ a {
     .body {
         margin: 0;
 
-        p {
+        *:first-child {
+            margin: 0;
+        }
+
+        *:not(:first-child) {
+            margin-top: 10px;
             margin-bottom: 0;
         }
 
@@ -186,11 +191,12 @@ a {
             }
         }
 
-        img {
-            width: 100%;
-            border-radius: 5px;
-            box-shadow: 2px 2px 10px RGBA(0, 0, 0, 0.6);
-            text-align: center;
+        .article-image {
+            img {
+                width: 100%;
+                border-radius: 5px;
+                box-shadow: 4px 4px 5px black;
+            }
         }
     }
 }

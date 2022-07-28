@@ -12,15 +12,15 @@ export default function User({ user }) {
 
     const joined = new Date(user.created_at);
 
-    const ga = async () => {
-        const articles_ = await getArticles(null, user.id);
-        setArticles(articles_);
-    };
-
     useEffect(() => {
+        const ga = async () => {
+            const articles_ = await getArticles(null, user.id);
+            setArticles(articles_);
+        };
+
         if (user.editor) ga();
         setLoaded(true);
-    }, [loaded]);
+    }, [loaded, user]);
 
     return (
         <div className="user-page">
@@ -47,7 +47,7 @@ export default function User({ user }) {
                     },
                 }}
             />
-            <SocialProfileJsonLd 
+            <SocialProfileJsonLd
                 type="Person"
                 name={user.name}
                 url={`https://toastenergy.com/users/${user.username}`}
