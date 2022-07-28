@@ -24,6 +24,7 @@ export interface ArticleProps {
     id: number;
     keywords: string;
     users: UserType;
+    likes: number;
 }
 
 export async function getArticles(

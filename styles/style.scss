@@ -141,6 +141,11 @@ a {
 .article {
     line-break: normal;
 
+    header {
+        display: flex;
+        justify-content: space-between;
+    }
+
     .author {
         opacity: 0.8;
         margin: 12px 0;
@@ -164,6 +169,10 @@ a {
     .body {
         margin: 0;
 
+        p {
+            margin-bottom: 0;
+        }
+
         p:has(img) {
             text-align: center;
         }
@@ -173,7 +182,7 @@ a {
             text-decoration: underline;
 
             &:visited {
-                color: rgb(197, 157, 230)
+                color: rgb(197, 157, 230);
             }
         }
 
@@ -533,4 +542,36 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.like-section {
+    .like {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        span {
+            user-select: none;
+        }
+
+        .heart {
+            display: flex;
+            align-items: center;
+        }
+
+        .liked {
+            svg {
+                width: 15px;
+                color: rgb(230, 100, 100);
+            }
+        }
+
+        .not-liked {
+            svg {
+                width: 15px;
+                color: rgb(100, 100, 100);
+            }
+        }
+    }
 }

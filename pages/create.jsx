@@ -52,7 +52,7 @@ export default function Create() {
                 author: supabase.auth.user().user_metadata.user_name,
             }),
         });
-        setLoadingMessage('Redirecting you to article...');
+        setLoadingMessage('Redirecting you to the article...');
         location.href = "/articles/" + url;
     };
 

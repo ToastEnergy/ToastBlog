@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { supabase } from "../supabase";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser } from "../slice";
+import { setUser, setGuest } from "../slice";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -36,6 +36,8 @@ export default function Auth() {
             if (!user && userData) {
                 const u = await getUser(userData);
                 dispatch(setUser(u));
+            } else if (!userData) {
+                dispatch(setGuest(true));
             }
         }
         if (location.pathname != "/logout") {
