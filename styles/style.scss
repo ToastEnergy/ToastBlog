@@ -72,16 +72,16 @@ a {
     }
 
     button {
-        background-color: $color2;
-        border: none;
-        outline: none;
+        all: unset;
         cursor: pointer;
-        color: unset;
-        font-family: unset;
-        font-size: unset;
-        font-weight: unset;
+        border: 2px solid $color2;
         padding: 5px 8px;
         border-radius: 5px;
+
+        &:hover {
+            background-color: $color2;
+            color: black;
+        }
     }
 
     nav {
