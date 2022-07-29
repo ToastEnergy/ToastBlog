@@ -25,6 +25,21 @@ a {
     }
 }
 
+button {
+    font-family: unset;
+    font-size: unset;
+    color: unset;
+    background: none;
+    border: 2px solid $color2;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:hover {
+        color: black;
+        background-color: $color2;
+    }
+}
+
 .avatar {
     border-radius: 50%;
     object-fit: cover;
@@ -69,19 +84,6 @@ a {
 
     p {
         margin: 0;
-    }
-
-    button {
-        all: unset;
-        cursor: pointer;
-        border: 2px solid $color2;
-        padding: 5px 8px;
-        border-radius: 5px;
-
-        &:hover {
-            background-color: $color2;
-            color: black;
-        }
     }
 
     nav {
@@ -344,19 +346,7 @@ a {
         }
 
         button {
-            background: none;
-            border: 2px solid $color2;
-            outline: none;
-            border-radius: 5px;
-            box-shadow: 4px 4px 5px black;
-            color: unset;
-            font-family: unset;
-            cursor: pointer;
             height: 50px;
-
-            &:hover {
-                background-color: $color2;
-            }
         }
     }
 }
@@ -404,7 +394,6 @@ a {
                     border-radius: 5px;
                     font-family: unset;
                     font-size: unset;
-                    box-shadow: 2px 2px 2px black;
                 }
             }
         }
@@ -436,20 +425,24 @@ a {
         width: 150px;
     }
 
+    input[type="file"] {
+        cursor: pointer;
+    }
+
     input[type="checkbox"] {
         width: unset;
         margin-left: 20px;
+        cursor: pointer;
     }
 
     input,
-    button,
     a {
-        background-color: $color2;
+        background: none;
         color: unset;
         font-family: unset;
-        border: none;
+        border: 2px solid $color2;
         padding: 5px;
-        border-radius: 3px;
+        border-radius: 5px;
         box-shadow: 2px 2px 2px black;
         font-size: 15px;
         outline: none;
@@ -465,17 +458,8 @@ a {
     }
 
     button {
+        height: 30px;
         width: 80px;
-    }
-
-    button,
-    a {
-        cursor: pointer;
-        transition: scale 0.2s ease-in-out;
-
-        &:hover {
-            scale: 1.1;
-        }
     }
 
     a {
@@ -505,6 +489,10 @@ a {
         justify-content: center;
     }
 
+    article {
+        margin-bottom: 50px;
+    }
+
     .form-inputs {
         display: flex;
         flex-direction: column;
@@ -525,8 +513,7 @@ a {
         }
 
         textarea,
-        input,
-        button {
+        input {
             outline: none;
             border: none;
             font-family: unset;
@@ -541,12 +528,8 @@ a {
         }
 
         button {
-            width: 100px;
+            width: 80px;
             height: 30px;
-            background-color: $color2;
-            box-shadow: 3px 3px 3px black;
-            border-radius: 5px;
-            cursor: pointer;
         }
     }
 }

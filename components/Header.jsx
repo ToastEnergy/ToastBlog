@@ -20,7 +20,15 @@ export default function Header() {
                             }}
                         />
                     </div>
-                    <Image src="/icon/Toaster.png" width="40" height="40" />
+                    <Link href="/">
+                        <a>
+                            <Image
+                                src="/icon/Toaster.png"
+                                width="40"
+                                height="40"
+                            />
+                        </a>
+                    </Link>
                     <Auth />
                 </div>
                 {isOpen ? (
