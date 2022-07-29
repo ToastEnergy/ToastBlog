@@ -1,8 +1,8 @@
 @use "_spinner";
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
-$color1: #121212;
-$color2: #1d1d1d;
+$color1: black;
+$color2: #e8fd88;
 
 html,
 body {
@@ -53,7 +53,7 @@ a {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        background-color: $color2;
+        border: 2px solid $color2;
         height: 44px;
         padding: 5px 20px;
     }
@@ -103,23 +103,31 @@ a {
     }
 }
 
+.articles-parent {
+    display: flex;
+    justify-content: center;
+}
+
 .articles {
+    max-width: 1100px;
+    margin-left: 50px;
+    margin-right: 50px;
     margin-top: 40px;
+    margin-bottom: 50px;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
     justify-content: center;
     gap: 40px;
-    margin-bottom: 50px;
 }
 
 .preview {
     position: relative;
-    background-color: $color2;
+    background-color: $color1;
     width: 300px;
-    max-height: 500px;
+    height: 300px;
     overflow: hidden;
-    box-shadow: 4px 4px 4px RGBA(0, 0, 0, 0.6);
+    border: 2px solid $color2;
+    box-shadow: 6px 6px $color2;
     border-radius: 8px;
     padding: 10px;
 }
@@ -183,12 +191,7 @@ a {
         }
 
         a {
-            color: rgb(177, 177, 238);
-            text-decoration: underline;
-
-            &:visited {
-                color: rgb(197, 157, 230);
-            }
+            color: $color2;
         }
 
         .article-image {
@@ -208,6 +211,7 @@ a {
     width: 100%;
     background-color: RGBA(0, 0, 0, 0.9);
     text-align: center;
+    border-top: 2px solid $color2;
 
     p {
         padding: 10px;
@@ -325,8 +329,8 @@ a {
         margin-bottom: 20px;
 
         textarea {
-            background-color: $color2;
-            border: none;
+            background: none;
+            border: 2px solid $color2;
             outline: none;
             border-radius: 5px;
             box-shadow: 4px 4px 5px black;
@@ -340,8 +344,8 @@ a {
         }
 
         button {
-            background-color: $color2;
-            border: none;
+            background: none;
+            border: 2px solid $color2;
             outline: none;
             border-radius: 5px;
             box-shadow: 4px 4px 5px black;
@@ -349,6 +353,10 @@ a {
             font-family: unset;
             cursor: pointer;
             height: 50px;
+
+            &:hover {
+                background-color: $color2;
+            }
         }
     }
 }
@@ -391,11 +399,11 @@ a {
 
                 button {
                     cursor: pointer;
-                    background-color: $color2;
+                    background: none;
                     border: none;
-                    padding: 5px;
                     border-radius: 5px;
                     font-family: unset;
+                    font-size: unset;
                     box-shadow: 2px 2px 2px black;
                 }
             }
@@ -569,14 +577,14 @@ a {
         .liked {
             svg {
                 width: 15px;
-                color: rgb(230, 100, 100);
+                color: $color2;
             }
         }
 
         .not-liked {
             svg {
                 width: 15px;
-                color: rgb(100, 100, 100);
+                color: white;
             }
         }
     }

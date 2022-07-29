@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import Auth from "./Auth";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,6 +20,7 @@ export default function Header() {
                             }}
                         />
                     </div>
+                    <Image src="/icon/Toaster.png" width="40" height="40" />
                     <Auth />
                 </div>
                 {isOpen ? (
