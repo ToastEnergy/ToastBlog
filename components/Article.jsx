@@ -26,7 +26,7 @@ const MarkdownComponents = {
     },
 };
 
-export default function Article({ article, preview = false }) {
+export default function Article({ article, preview = false, latest = false }) {
     let body = article.body;
     let button = false;
     const maxLength = 500;
@@ -49,47 +49,53 @@ export default function Article({ article, preview = false }) {
     }
 
     return (
-        <article>
-            <div className={"article" + (preview ? " preview" : " full")}>
-                {button ? (
-                    <Link href={`/articles/${article.url}`}>
-                        <a>
-                            <div className="open-article">
-                                <p>Full Article</p>
-                            </div>
-                        </a>
-                    </Link>
-                ) : null}
-                <header>
-                    <div>
-                        <time
-                            dateTime={formatDate(article.created_at)}
-                            className="date"
-                        >
-                            {new Date(article.created_at).toDateString()}
-                        </time>
-                        <p className="author">
-                            <Link href={"/users/" + article.users.username}>
-                                <a>@{article.users.username}</a>
-                            </Link>
-                        </p>
+        <>
+            <article>
+                <div className={"article" + (preview ? " preview" : " full")}>
+                    {button ? (
+                        <Link href={`/articles/${article.url}`}>
+                            <a>
+                                <div className="open-article">
+                                    <p>Full Article</p>
+                                </div>
+                            </a>
+                        </Link>
+                    ) : null}
+                    <header>
+                        <div>
+                            {latest ? (
+                                <p className="latest-article">Latest Article</p>
+                            ) : null}
+                            <time
+                                dateTime={formatDate(article.created_at)}
+                                className="date"
+                            >
+                                {new Date(article.created_at).toDateString()}
+                            </time>
+                            <p className="author">
+                                <Link href={"/users/" + article.users.username}>
+                                    <a>@{article.users.username}</a>
+                                </Link>
+                            </p>
+                        </div>
+                        <div>
+                            <Likes articleID={article.id} />
+                        </div>
+                    </header>
+                    <h1 className="title">
+                        <Link href={"/articles/" + article.url}>
+                            <a>{article.title}</a>
+                        </Link>
+                    </h1>
+                    <hr />
+                    <div className="body">
+                        <ReactMarkdown components={MarkdownComponents}>
+                            {body}
+                        </ReactMarkdown>
                     </div>
-                    <div>
-                        <Likes articleID={article.id} />
-                    </div>
-                </header>
-                <h1 className="title">
-                    <Link href={"/articles/" + article.url}>
-                        <a>{article.title}</a>
-                    </Link>
-                </h1>
-                <hr />
-                <div className="body">
-                    <ReactMarkdown components={MarkdownComponents}>
-                        {body}
-                    </ReactMarkdown>
                 </div>
-            </div>
-        </article>
+            </article>
+            {latest ? <hr className="divider" /> : null}
+        </>
     );
 }

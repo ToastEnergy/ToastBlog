@@ -22,7 +22,12 @@ function MyApp({ Component, pageProps }) {
                         {
                             name: "msvalidate.01",
                             content: "3A3AA9415C89992603F3E144BB929C44",
-                        }
+                        },
+                        {
+                            name: "google-site-verification",
+                            content: "dqCd8gJq3lC4TSQN6c9LX8t7EUwwBIwVZl9hBDF5nsg",
+                        },
+                            
                     ]
                 }
                 openGraph={{
