@@ -88,7 +88,7 @@ export default function User({ user }) {
                     <div className="option">
                         <span>articles</span>
                         {articles ? (
-                            <div className="articles">
+                            <div className="articles user-articles">
                                 {articles.map((article, index) => {
                                     return (
                                         <Article

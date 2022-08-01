@@ -29,7 +29,7 @@ const MarkdownComponents = {
 export default function Article({ article, preview = false, latest = false }) {
     let body = article.body;
     let button = false;
-    const maxLength = 500;
+    const maxLength = latest? 1110 : 500;
 
     if (preview && article.body.length > maxLength) {
         body = article.body.substring(0, maxLength) + "...";

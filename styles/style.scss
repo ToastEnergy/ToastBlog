@@ -119,12 +119,22 @@ button {
     justify-content: center;
     gap: 40px;
 
-    article:first-child {
+    .divider {
         width: 100%;
     }
 
-    .divider {
-        width: 100%;
+    &:not(.user-articles) {
+        article:not(:first-child) {
+            .preview {
+                width: 300px;
+            }
+        }
+    }
+}
+
+.user-articles {
+    .preview {
+        width: 300px;
     }
 }
 
@@ -137,12 +147,6 @@ button {
     box-shadow: 6px 6px $color2;
     border-radius: 8px;
     padding: 10px;
-}
-
-article:not(:first-child) {
-    .preview {
-        width: 300px;
-    }
 }
 
 .article-parent {
