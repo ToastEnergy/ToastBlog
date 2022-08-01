@@ -603,8 +603,7 @@ footer {
     position: absolute;
     bottom: 0;
     width: calc(100vw - 4px);
-    border: 2px solid $color2;
-    margin-bottom: 3px;
+    border-top: 2px solid $color2;
     height: 60px;
     display: flex;
     align-items: center;
