@@ -47,6 +47,11 @@ export default function Header() {
                                 <a>Home</a>
                             </Link>
                         </div>
+                        <div className="nav-item">
+                            <Link href="/search">
+                                <a>Search</a>
+                            </Link>
+                        </div>
                     </nav>
                 ) : null}
             </div>

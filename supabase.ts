@@ -27,10 +27,7 @@ export interface ArticleProps {
     likes: number;
 }
 
-export async function getArticles(
-    url: string | null | undefined,
-    user: string | null | undefined
-) {
+export async function getArticles(url?: string, user?: string) {
     if (user) {
         const { data, error } = await supabase
             .from("articles")

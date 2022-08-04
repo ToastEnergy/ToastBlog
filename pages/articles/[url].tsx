@@ -26,7 +26,7 @@ export default function ArticlePage({ article, error }: Props) {
 }
 
 export async function getStaticProps({ params }: { params: { url: string } }) {
-    const articles: Array<ArticleProps> = await getArticles(params.url, null);
+    const articles: Array<ArticleProps> = await getArticles(params.url);
     if (articles.length === 0) {
         return { notFound: true };
     }
