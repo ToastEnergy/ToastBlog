@@ -24,8 +24,8 @@ export default function Search({ articles }: { articles: ArticleProps[] }) {
                 />
             </div>
             {results.length > 0 ? <div className="articles not-latest">
-                {results.map((article) => (
-                    <Article article={article} preview={true} />
+                {results.map((article, index) => (
+                    <Article key={index} article={article} preview={true} />
                 ))}
             </div> : <p>No articles found :(</p>}
         </div>
