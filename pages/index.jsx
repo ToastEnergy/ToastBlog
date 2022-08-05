@@ -29,6 +29,7 @@ export default function Home({ articles }) {
 
 export async function getStaticProps() {
     const articles = await getArticles();
+
     return {
         props: {
             articles,

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { supabase } from "../supabase";
 import { useSelector, useDispatch } from "react-redux";
-import { setUser, setGuest } from "../slice";
+import { setUser, setGuest, setEditor } from "../slice";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -18,7 +18,6 @@ export default function Auth() {
 
         if (!data || data.length === 0) {
             const { data, error } = await supabase.from("users").insert({
-                editor: false,
                 id: user.id,
                 username: user.user_metadata.user_name,
                 name: user.user_metadata.name,
@@ -30,12 +29,22 @@ export default function Auth() {
         return data[0];
     }
 
+    async function isEditor(user) {
+        const { data, error } = await supabase
+            .from("editors")
+            .select("*")
+        if (error) console.error(error);
+        return data.length > 0;
+    }
+
     useEffect(() => {
         async function loadUser() {
             const userData = supabase.auth.user();
             if (!user && userData) {
                 const u = await getUser(userData);
                 dispatch(setUser(u));
+                const editor = await isEditor(userData);
+                dispatch(setEditor(editor));
             } else if (!userData) {
                 dispatch(setGuest(true));
             }

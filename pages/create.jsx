@@ -1,11 +1,12 @@
 import { supabase } from "../supabase";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import Article from "../components/Article";
 import Loading from "../components/Loading";
 
 export default function Create() {
     const user = useSelector((state) => state.slice.user);
+    const editor = useSelector((state) => state.slice.editor);
     const [articleTitle, setArticleTitle] = useState("");
     const [articleBody, setArticleBody] = useState("");
     const [articleUrl, setArticleUrl] = useState("");
@@ -25,7 +26,7 @@ export default function Create() {
                 Date.now().toString()
         );
 
-        setLoadingMessage('Updating article to database...');
+        setLoadingMessage("Updating article to database...");
         const { data, error } = await supabase.from("articles").insert({
             title: e.target.title.value,
             body: e.target.body.value,
@@ -37,7 +38,7 @@ export default function Create() {
 
         if (error) alert("There was an error creating the article");
 
-        setLoadingMessage('Sending article to Telegram...');
+        setLoadingMessage("Sending article to Telegram...");
         await fetch("/api/telegram", {
             method: "POST",
             headers: {
@@ -52,13 +53,13 @@ export default function Create() {
                 author: supabase.auth.user().user_metadata.user_name,
             }),
         });
-        setLoadingMessage('Redirecting you to the article...');
+        setLoadingMessage("Redirecting you to the article...");
         location.href = "/articles/" + url;
     };
 
     return (
         <div className="create-article">
-            {user && user.editor ? (
+            {user && editor ? (
                 <>
                     {loadingMessage ? (
                         <div className="uploading-article">
@@ -137,7 +138,10 @@ export default function Create() {
                     )}
                 </>
             ) : (
-                <p>nope</p>
+                <>
+                    <p>{editor}</p>
+                    <p>nope</p>
+                </>
             )}
         </div>
     );

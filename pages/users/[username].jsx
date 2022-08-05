@@ -6,7 +6,7 @@ import Article from "../../components/Article";
 import { NextSeo } from "next-seo";
 import { SocialProfileJsonLd } from "next-seo";
 
-export default function User({ user }) {
+export default function User({ user, isEditor }) {
     const [loaded, setLoaded] = useState(false);
     const [articles, setArticles] = useState(null);
 
@@ -18,7 +18,7 @@ export default function User({ user }) {
             setArticles(articles_);
         };
 
-        if (user.editor) ga();
+        if (isEditor) ga();
         setLoaded(true);
     }, [loaded, user]);
 
@@ -63,7 +63,7 @@ export default function User({ user }) {
                 </div>
                 <div className="name">
                     <h1>{user.name}</h1>{" "}
-                    {user.editor ? (
+                    {isEditor ? (
                         <span className="editor">editor</span>
                     ) : (
                         <span className="reader">reader</span>
@@ -84,7 +84,7 @@ export default function User({ user }) {
                         })}
                     </p>
                 </div>
-                {user.editor ? (
+                {isEditor ? (
                     <div className="option">
                         <span>articles</span>
                         {articles ? (
@@ -117,9 +117,12 @@ export async function getStaticProps({ params }) {
         .select("*")
         .eq("username", params.username);
 
+    const { data: editors, error: error2 } = await supabase.from('editors').select('*').eq('id', users[0].id);
+
     return {
         props: {
             user: users[0],
+            isEditor: editors.length > 0,
         },
     };
 }
