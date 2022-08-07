@@ -26,6 +26,7 @@ export default function Header() {
                                 src="/icon/Toaster.png"
                                 width="40"
                                 height="40"
+                                alt="Toaster"
                             />
                         </a>
                     </Link>

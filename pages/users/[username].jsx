@@ -20,7 +20,7 @@ export default function User({ user, isEditor }) {
 
         if (isEditor) ga();
         setLoaded(true);
-    }, [loaded, user]);
+    }, [loaded, user, isEditor]);
 
     return (
         <div className="user-page">

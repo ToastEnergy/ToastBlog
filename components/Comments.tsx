@@ -45,7 +45,7 @@ export default function Comments({ articleID }: Props) {
         }
         getComments();
         setLoaded(true);
-    }, [loaded]);
+    }, [loaded, articleID]);
 
     async function deleteComment(id: number) {
         await supabase.from("comments").delete().match({ id: id });

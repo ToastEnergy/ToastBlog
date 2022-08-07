@@ -52,7 +52,7 @@ export default function Auth() {
         if (location.pathname != "/logout") {
             loadUser();
         }
-    }, []);
+    }, [dispatch, user]);
 
     async function signInWithGithub() {
         localStorage.setItem("redirect", location.pathname);
