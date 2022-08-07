@@ -140,6 +140,10 @@ button {
                 width: 300px;
             }
         }
+
+        article:first-child {
+            width: 100%;
+        }
     }
 }
 
