@@ -51,6 +51,10 @@ export default function Auth() {
                         "--color2",
                         theme[1]
                     );
+                    document.documentElement.style.setProperty(
+                        "--color3",
+                        theme[2]
+                    );
                 }
 
                 dispatch(setUser(u));

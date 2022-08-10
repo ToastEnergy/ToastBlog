@@ -13,16 +13,18 @@ export default function Account() {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
 
-    const defaultTheme = ["black", "#e8fd88"];
+    const defaultTheme = ["#000000", "#e8fd88", "#ffffff"];
 
     let defaultValues: any = {};
     let color1: string = defaultTheme[0];
     let color2: string = defaultTheme[1];
+    let color3: string = defaultTheme[2];
 
     if (user) {
         if (user.theme) {
             color1 = user.theme.split("-")[0];
             color2 = user.theme.split("-")[1];
+            color3 = user.theme.split("-")[2];
         }
 
         defaultValues = {
@@ -30,6 +32,7 @@ export default function Account() {
             username: user.username,
             color1,
             color2,
+            color3,
         };
     }
 
@@ -105,6 +108,7 @@ export default function Account() {
             edited = true;
             color1 = defaultTheme[0];
             color2 = defaultTheme[1];
+            color3 = defaultTheme[2];
         }
 
         if (edited) {
@@ -119,7 +123,11 @@ export default function Account() {
             }
 
             let theme: string | null =
-                target.color1.value + "-" + target.color2.value;
+                target.color1.value +
+                "-" +
+                target.color2.value +
+                "-" +
+                target.color3.value;
             if (target.resetTheme.checked) theme = null;
 
             const { data, error } = await supabase
@@ -143,9 +151,14 @@ export default function Account() {
                     "--color2",
                     defaultTheme[1]
                 );
+                document.documentElement.style.setProperty(
+                    "--color3",
+                    defaultTheme[2]
+                );
             } else if (
                 target.color1.value != color1 ||
-                target.color2.value != color2
+                target.color2.value != color2 ||
+                target.color3.value != color3
             ) {
                 document.documentElement.style.setProperty(
                     "--color1",
@@ -154,6 +167,10 @@ export default function Account() {
                 document.documentElement.style.setProperty(
                     "--color2",
                     target.color2.value
+                );
+                document.documentElement.style.setProperty(
+                    "--color3",
+                    target.color3.value
                 );
             }
 
@@ -246,7 +263,7 @@ export default function Account() {
                                 </div>
                             </div>
                             <div className="option">
-                                <label htmlFor="color1">Primary Color</label>
+                                <label htmlFor="color1">Background Color</label>
                                 <input
                                     id="color1"
                                     type="color"
@@ -256,12 +273,22 @@ export default function Account() {
                                 />
                             </div>
                             <div className="option">
-                                <label htmlFor="color2">Secondary Color</label>
+                                <label htmlFor="color2">Border Color</label>
                                 <input
                                     id="color2"
                                     type="color"
                                     name="color2"
                                     defaultValue={color2}
+                                    required
+                                />
+                            </div>
+                            <div className="option">
+                                <label htmlFor="color3">Text Color</label>
+                                <input
+                                    id="color3"
+                                    type="color"
+                                    name="color3"
+                                    defaultValue={color3}
                                     required
                                 />
                             </div>

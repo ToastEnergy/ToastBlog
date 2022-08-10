@@ -4,10 +4,12 @@
 :root {
     --color1: black;
     --color2: #e8fd88;
+    --color3: white;
 }
 
 $color1: var(--color1);
 $color2: var(--color2);
+$color3: var(--color3);
 
 html,
 body {
@@ -18,7 +20,7 @@ body {
 body {
     font-family: "Roboto", sans-serif;
     background-color: $color1;
-    color: white;
+    color: $color3;
 }
 
 a {
