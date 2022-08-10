@@ -14,11 +14,20 @@ export default function Account() {
     const dispatch = useDispatch();
 
     let defaultValues: any = {};
+    let color1: string = 'black';
+    let color2: string = '#e8fd88';
 
     if (user) {
+        if (user.theme) {
+            color1 = user.theme.split("-")[0];
+            color2 = user.theme.split("-")[1];
+        }
+
         defaultValues = {
             name_: user.name,
             username: user.username,
+            color1,
+            color2,
         };
     }
 
@@ -50,34 +59,41 @@ export default function Account() {
         } else {
             if (target.avatar.files[0]) {
                 if (
-                    ["image/png", "image/jpeg", "image/gif", "image/webp"].includes(
-                        target.avatar.files[0].type
-                    )
+                    [
+                        "image/png",
+                        "image/jpeg",
+                        "image/gif",
+                        "image/webp",
+                    ].includes(target.avatar.files[0].type)
                 ) {
                     if (target.avatar.files[0].size <= 5242880) {
-                    edited = true;
-                    await deleteOldAvatar();
+                        edited = true;
+                        await deleteOldAvatar();
 
-                    const ext = target.avatar.files[0].name.split(".").pop();
-                    const filename = `${user!.id}-${Date.now()}.${ext}`;
-                    const { data, error } = await supabase.storage
-                        .from("avatars")
-                        .upload(filename, target.avatar.files[0], {
-                            cacheControl: "3600",
-                            upsert: false,
-                        });
-
-                    const { data: avatarData, error: avatarError } =
-                        await supabase.storage
+                        const ext = target.avatar.files[0].name
+                            .split(".")
+                            .pop();
+                        const filename = `${user!.id}-${Date.now()}.${ext}`;
+                        const { data, error } = await supabase.storage
                             .from("avatars")
-                            .getPublicUrl(filename);
-                    avatar = avatarData!.publicURL;
+                            .upload(filename, target.avatar.files[0], {
+                                cacheControl: "3600",
+                                upsert: false,
+                            });
+
+                        const { data: avatarData, error: avatarError } =
+                            await supabase.storage
+                                .from("avatars")
+                                .getPublicUrl(filename);
+                        avatar = avatarData!.publicURL;
                     } else {
                         alert("Avatar is too big (Max 5MB)");
                         errored = true;
                     }
                 } else {
-                    alert("Invalid file type, only PNG, JPG, JPEG, GIF, and WEBP");
+                    alert(
+                        "Invalid file type, only PNG, JPG, JPEG, GIF, and WEBP"
+                    );
                     errored = true;
                 }
             }
@@ -100,22 +116,27 @@ export default function Account() {
                     name: target.name_.value,
                     username: target.username.value,
                     avatar: avatar,
+                    theme: `${target.color1.value}-${target.color2.value}`,
                 })
                 .match({
                     id: user!.id,
                 });
+            if (target.color1.value != color1 || target.color2.value != color2) {
+                document.documentElement.style.setProperty("--color1", target.color1.value);
+                document.documentElement.style.setProperty("--color2", target.color2.value);
+            }
             dispatch(setUser(data![0]));
             setIsLoading(false);
-            await fetch('/api/revalidate', {
-                method: 'POST',
+            await fetch("/api/revalidate", {
+                method: "POST",
                 headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": supabase.auth.session()!.access_token
+                    "Content-Type": "application/json",
+                    Authorization: supabase.auth.session()!.access_token,
                 },
                 body: JSON.stringify({
-                   username: user!.username,
+                    username: user!.username,
                 }),
-            })
+            });
         } else {
             setIsLoading(false);
             if (!errored) alert("No changes made");
@@ -177,6 +198,26 @@ export default function Account() {
                                     name="username"
                                     defaultValue={user.username}
                                     placeholder="Username"
+                                    required
+                                />
+                            </div>
+                            <div className="option">
+                                <label htmlFor="color1">Primary Color</label>
+                                <input
+                                    id="color1"
+                                    type="color"
+                                    name="color1"
+                                    defaultValue={color1}
+                                    required
+                                />
+                            </div>
+                            <div className="option">
+                                <label htmlFor="color2">Secondary Color</label>
+                                <input
+                                    id="color2"
+                                    type="color"
+                                    name="color2"
+                                    defaultValue={color2}
                                     required
                                 />
                             </div>

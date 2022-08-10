@@ -1,8 +1,13 @@
 @use "_spinner";
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
-$color1: black;
-$color2: #e8fd88;
+:root {
+    --color1: black;
+    --color2: #e8fd88;
+}
+
+$color1: var(--color1);
+$color2: var(--color2);
 
 html,
 body {

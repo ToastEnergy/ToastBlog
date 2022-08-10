@@ -30,9 +30,7 @@ export default function Auth() {
     }
 
     async function isEditor(user) {
-        const { data, error } = await supabase
-            .from("editors")
-            .select("*")
+        const { data, error } = await supabase.from("editors").select("*");
         if (error) console.error(error);
         return data.length > 0;
     }
@@ -42,6 +40,19 @@ export default function Auth() {
             const userData = supabase.auth.user();
             if (!user && userData) {
                 const u = await getUser(userData);
+
+                if (u.theme) {
+                    const theme = u.theme.split("-");
+                    document.documentElement.style.setProperty(
+                        "--color1",
+                        theme[0]
+                    );
+                    document.documentElement.style.setProperty(
+                        "--color2",
+                        theme[1]
+                    );
+                }
+
                 dispatch(setUser(u));
                 const editor = await isEditor(userData);
                 dispatch(setEditor(editor));

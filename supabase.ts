@@ -15,6 +15,7 @@ export interface UserType {
     avatar: string;
     username: string;
     editor: boolean;
+    theme: string | null;
 }
 
 export interface ArticleProps {
