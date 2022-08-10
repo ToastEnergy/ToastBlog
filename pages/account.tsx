@@ -13,9 +13,11 @@ export default function Account() {
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
 
+    const defaultTheme = ["black", "#e8fd88"];
+
     let defaultValues: any = {};
-    let color1: string = 'black';
-    let color2: string = '#e8fd88';
+    let color1: string = defaultTheme[0];
+    let color2: string = defaultTheme[1];
 
     if (user) {
         if (user.theme) {
@@ -99,6 +101,12 @@ export default function Account() {
             }
         }
 
+        if (target.resetTheme.checked) {
+            edited = true;
+            color1 = defaultTheme[0];
+            color2 = defaultTheme[1];
+        }
+
         if (edited) {
             const { data: userCheck, error: userCheckError } = await supabase
                 .from("users")
@@ -110,21 +118,45 @@ export default function Account() {
                 return;
             }
 
+            let theme: string | null =
+                target.color1.value + "-" + target.color2.value;
+            if (target.resetTheme.checked) theme = null;
+
             const { data, error } = await supabase
                 .from("users")
                 .update({
                     name: target.name_.value,
                     username: target.username.value,
                     avatar: avatar,
-                    theme: `${target.color1.value}-${target.color2.value}`,
+                    theme: theme,
                 })
                 .match({
                     id: user!.id,
                 });
-            if (target.color1.value != color1 || target.color2.value != color2) {
-                document.documentElement.style.setProperty("--color1", target.color1.value);
-                document.documentElement.style.setProperty("--color2", target.color2.value);
+
+            if (target.resetTheme.checked) {
+                document.documentElement.style.setProperty(
+                    "--color1",
+                    defaultTheme[0]
+                );
+                document.documentElement.style.setProperty(
+                    "--color2",
+                    defaultTheme[1]
+                );
+            } else if (
+                target.color1.value != color1 ||
+                target.color2.value != color2
+            ) {
+                document.documentElement.style.setProperty(
+                    "--color1",
+                    target.color1.value
+                );
+                document.documentElement.style.setProperty(
+                    "--color2",
+                    target.color2.value
+                );
             }
+
             dispatch(setUser(data![0]));
             setIsLoading(false);
             await fetch("/api/revalidate", {
@@ -200,6 +232,18 @@ export default function Account() {
                                     placeholder="Username"
                                     required
                                 />
+                            </div>
+                            <div className="option">
+                                <div>
+                                    <label htmlFor="resetTheme">
+                                        Reset Theme
+                                    </label>
+                                    <input
+                                        id="resetTheme"
+                                        name="resetTheme"
+                                        type="checkbox"
+                                    />
+                                </div>
                             </div>
                             <div className="option">
                                 <label htmlFor="color1">Primary Color</label>
