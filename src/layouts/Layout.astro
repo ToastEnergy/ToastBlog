@@ -1,0 +1,23 @@
+---
+import "../styles/style.scss";
+import Header from "../components/Header.astro";
+const { title } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{title}</title>
+    </head>
+    <body>
+        <Header />
+        <div class="container">
+            <slot />
+        </div>
+        <style>
+            .container {
+                padding: 20px;
+            }
+        </style>
+    </body>
+</html>

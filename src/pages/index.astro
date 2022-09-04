@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+const articles = await Astro.glob('./articles/*/*.md')
+import Article from '../components/Article.astro';
+---
+<Layout title="Toast Energy Blog">
+	<h1>Toast Energy Blog</h1>
+	<div class="articles">
+		{articles.map((article) => <Article frontmatter={article.frontmatter} url={article.url} full={false} />)}
+	</div>
+</Layout>
+
+<style>
+	h1 {
+		margin-top: 0;
+	}
+
+	.articles {
+		display: flex;
+		gap: 20px;
+		flex-wrap: wrap;
+	}
+</style>

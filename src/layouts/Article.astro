@@ -1,0 +1,9 @@
+---
+import Layout from './Layout.astro';
+import Article from '../components/Article.astro';
+const { frontmatter } = Astro.props;
+---
+
+<Layout title={frontmatter.title}>
+    <Article frontmatter={frontmatter} full={true} />
+</Layout>
