@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 const articles = await Astro.glob('./articles/*/*.md')
 import Article from '../components/Article.astro';
 ---
-<Layout title="Toast Energy Blog">
+<Layout>
 	<h1>Toast Energy Blog</h1>
 	<div class="articles">
 		{articles.map((article) => <Article frontmatter={article.frontmatter} url={article.url} full={false} />)}

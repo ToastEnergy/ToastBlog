@@ -1,16 +1,143 @@
 ---
+interface Props {
+    title?: string;
+    meta?: any;
+}
+
 import "../styles/style.scss";
 import Header from "../components/Header.astro";
-const { title } = Astro.props;
+
+const defaultMeta = {
+    title: "Toast Blog",
+    description: "Tech news from a toast",
+    url: "https://blog.toastenergy.xyz",
+    type: "website",
+    tags: "toast blog, toast energy, toast, blog",
+};
+
+const { meta = defaultMeta } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>{title}</title>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>{meta.title}</title>
+        <!-- <meta name="msvalidate.01" content="3A3AA9415C89992603F3E144BB929C44">
+        <meta name="google-site-verification" content="dqCd8gJq3lC4TSQN6c9LX8t7EUwwBIwVZl9hBDF5nsg"> -->
+        <meta name="robots" content="index, follow" />
+        <meta name="keywords" content={meta.tags} />
+        <meta name="description" content={meta.description} />
+        <meta name="twitter:site" content="@toast_energy" />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:url" content={meta.url} />
+        {
+            meta.type === "article" ? (
+                    <meta
+                        property="article:published_time"
+                        content={meta.date}
+                    />
+                    <meta property="article:author" content={meta.author} />
+                    <>
+                        {meta.tags.split(",").map((tag: string) => (
+                            <meta property="article:tag" content={tag} />
+                        ))}
+                    </>
+            ) : null
+        }
+
+        <meta property="og:type" content={meta.type} />
+        <meta property="og:locale" content="en_US" />
+        <meta property="og:site_name" content="Toast Blog" />
+        <meta property="og:image" content="/banner.png">
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="630">
+        <meta name="twitter:card" content="summary_large_image">
+        <link rel="canonical" href="https://blog.toastenergy.xyz" />
+
+        <link
+            rel="apple-touch-icon"
+            sizes="57x57"
+            href="/icons/apple-icon-57x57.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="60x60"
+            href="/icons/apple-icon-60x60.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="72x72"
+            href="/icons/apple-icon-72x72.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="76x76"
+            href="/icons/apple-icon-76x76.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="114x114"
+            href="/icons/apple-icon-114x114.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="120x120"
+            href="/icons/apple-icon-120x120.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="144x144"
+            href="/icons/apple-icon-144x144.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="152x152"
+            href="/icons/apple-icon-152x152.png"
+        />
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/icons/apple-icon-180x180.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="192x192"
+            href="/icons/android-icon-192x192.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/icons/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="96x96"
+            href="/icons/favicon-96x96.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/icons/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="msapplication-TileColor" content="#ffffff" />
+        <meta
+            name="msapplication-TileImage"
+            content="/icons/ms-icon-144x144.png"
+        />
+        <meta name="theme-color" content="#ffffff" />
     </head>
     <body>
         <Header />
+
         <div class="container">
             <slot />
         </div>

@@ -1,9 +1,18 @@
 ---
-import Layout from './Layout.astro';
-import Article from '../components/Article.astro';
+import Layout from "./Layout.astro";
+import Article from "../components/Article.astro";
 const { frontmatter } = Astro.props;
 ---
 
-<Layout title={frontmatter.title}>
+<Layout
+    meta={{
+        title: frontmatter.title,
+        description: frontmatter.description,
+        url: "https://blog.toastenergy.dev" + frontmatter.url,
+        type: "article",
+        tags: frontmatter.tags,
+        date: frontmatter.date,
+    }}
+>
     <Article frontmatter={frontmatter} full={true} />
 </Layout>
