@@ -12,6 +12,7 @@ const { frontmatter } = Astro.props;
         type: "article",
         tags: frontmatter.tags,
         date: frontmatter.date,
+        robots: "index, follow",
     }}
 >
     <Article frontmatter={frontmatter} full={true} />

@@ -13,6 +13,7 @@ const defaultMeta = {
     url: "https://blog.toastenergy.xyz",
     type: "website",
     tags: "toast blog, toast energy, toast, blog",
+    robots: "index, follow",
 };
 
 const { meta = defaultMeta } = Astro.props;
@@ -27,7 +28,7 @@ const { meta = defaultMeta } = Astro.props;
         <title>{meta.title}</title>
         <!-- <meta name="msvalidate.01" content="3A3AA9415C89992603F3E144BB929C44">
         <meta name="google-site-verification" content="dqCd8gJq3lC4TSQN6c9LX8t7EUwwBIwVZl9hBDF5nsg"> -->
-        <meta name="robots" content="index, follow" />
+        <meta name="robots" content={meta.robots} />
         <meta name="keywords" content={meta.tags} />
         <meta name="description" content={meta.description} />
         <meta name="twitter:site" content="@toast_energy" />

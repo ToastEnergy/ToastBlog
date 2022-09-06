@@ -2,7 +2,14 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout>
+<Layout meta={{
+    title: "Toast Blog - Not Found",
+    description: "The page you are looking for does not exist.",
+    url: "https://blog.toastenergy.xyz",
+    type: "website",
+    tags: "",
+    robots: "noindex, nofollow"
+}}>
   <h1>404 - Not Found</h1>
   <p><a href="/">Return to home</a></p>
 </Layout>
