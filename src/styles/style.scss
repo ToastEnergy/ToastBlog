@@ -1,9 +1,15 @@
+@font-face {
+    font-family: 'Readex Pro';
+    src: url('/ReadexPro.ttf');
+}
+
 html, body {
     margin: 0;
     padding: 0;
 }
 
 body {
+    font-family: 'Readex Pro';
     background-color: $background;
     color: $text;
 }

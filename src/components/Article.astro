@@ -9,7 +9,7 @@ const { frontmatter, url, full } = Astro.props;
 ---
 
 <article class={"article " + (full ? " full" : " preview")}>
-    <p class="date">{frontmatter.date}</p>
+    <p class="date">{new Date(frontmatter.date).toDateString()}</p>
     <p class="author">by <b>{frontmatter.author}</b></p>
     <p class="category">{frontmatter.category}</p>
     {
