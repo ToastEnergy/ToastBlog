@@ -6,7 +6,7 @@ import Article from '../components/Article.astro';
 <Layout>
 	<h1>Toast Blog</h1>
 	<div class="articles">
-		{articles.map((article) => <Article frontmatter={article.frontmatter} url={article.url} full={false} />)}
+		{articles.map((article) => <Article frontmatter={article.frontmatter} url={article.url} full={false}>{article.frontmatter.description}</Article>)}
 	</div>
 </Layout>
 

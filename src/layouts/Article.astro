@@ -15,5 +15,7 @@ const { frontmatter } = Astro.props;
         robots: "index, follow",
     }}
 >
-    <Article frontmatter={frontmatter} full={true} />
+    <Article frontmatter={frontmatter} full={true}>
+        <slot />
+    </Article>
 </Layout>

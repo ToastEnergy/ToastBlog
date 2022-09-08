@@ -22,7 +22,7 @@ const { frontmatter, url, full } = Astro.props;
         )
     }
     <hr />
-    {frontmatter.description}
+    <slot />
 </article>
 
 <style lang="scss">
