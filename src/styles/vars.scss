@@ -1,3 +1,11 @@
 $accent: #e8fd88;
 $background: black;
 $text: #d9e0ee;
+
+$containerPadding: 20px;
+$fullArticlePadding: 10px;
+$headerHeight: 35px;
+$headerBorderWidth: 1px;
+$commentsHeight: 269px;
+
+$minArticleHeight: calc(100vh - $containerPadding*2 - $fullArticlePadding*2 - $headerHeight - $headerBorderWidth - $commentsHeight);

@@ -18,4 +18,13 @@ const { frontmatter } = Astro.props;
     <Article frontmatter={frontmatter} full={true}>
         <slot />
     </Article>
+    <script
+        src="https://utteranc.es/client.js"
+        repo="ToastEnergy/ToasBlogComments"
+        issue-term="pathname"
+        label="💭 Comment"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async
+    ></script>
 </Layout>

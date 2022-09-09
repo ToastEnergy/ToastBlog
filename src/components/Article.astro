@@ -32,6 +32,11 @@ const { frontmatter, url, full } = Astro.props;
         width: 250px;
         height: 220px;
         box-shadow: $accent 5px 5px;
+        overflow: hidden;
+    }
+
+    .full {
+        min-height: $minArticleHeight;
     }
 
     article {
