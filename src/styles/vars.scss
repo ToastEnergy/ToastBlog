@@ -4,8 +4,9 @@ $text: #d9e0ee;
 
 $containerPadding: 20px;
 $fullArticlePadding: 10px;
-$headerHeight: 35px;
-$headerBorderWidth: 1px;
+$headerHeight: 45px;
 $commentsHeight: 269px;
+$footerHeight: 50px;
 
-$minArticleHeight: calc(100vh - $containerPadding*2 - $fullArticlePadding*2 - $headerHeight - $headerBorderWidth - $commentsHeight);
+$minHeight: calc(100vh - $containerPadding*2 - $headerHeight - $footerHeight - 2px);
+// $minArticleHeight: calc(100vh - $containerPadding*2 - $fullArticlePadding*2 - $headerHeight - $headerBorderWidth - $commentsHeight);
