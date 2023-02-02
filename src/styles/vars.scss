@@ -1,4 +1,5 @@
 $accent: #e8fd88;
+$darkerAccent: #f8f661;
 $background: black;
 $text: #d9e0ee;
 
@@ -8,5 +9,6 @@ $headerHeight: 45px;
 $commentsHeight: 269px;
 $footerHeight: 50px;
 
-$minHeight: calc(100vh - $containerPadding*2 - $headerHeight - $footerHeight - 2px);
-// $minArticleHeight: calc(100vh - $containerPadding*2 - $fullArticlePadding*2 - $headerHeight - $headerBorderWidth - $commentsHeight);
+$minHeight: calc(
+    100vh - $containerPadding * 2 - $headerHeight - $footerHeight - 2px
+);

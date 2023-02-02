@@ -15,9 +15,11 @@ const { frontmatter } = Astro.props;
         robots: "index, follow",
     }}
 >
-    <Article frontmatter={frontmatter} full={true}>
-        <slot />
-    </Article>
+    <div class="article-parent">
+        <Article frontmatter={frontmatter} full={true}>
+            <slot />
+        </Article>
+    </div>
     <script
         src="https://utteranc.es/client.js"
         repo="ToastEnergy/ToastBlogComments"
@@ -28,3 +30,11 @@ const { frontmatter } = Astro.props;
         async
     ></script>
 </Layout>
+
+<style lang="scss">
+    .article-parent {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+</style>

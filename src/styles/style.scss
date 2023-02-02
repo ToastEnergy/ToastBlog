@@ -1,15 +1,29 @@
 @font-face {
-    font-family: 'Readex Pro';
-    src: url('/ReadexPro.ttf');
+    font-family: "Readex Pro";
+    src: url("/ReadexPro.ttf");
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 }
 
 body {
-    font-family: 'Readex Pro';
+    font-family: "Readex Pro";
     background-color: $background;
     color: $text;
+}
+
+article {
+    img {
+        width: 100%;
+    }
+    a {
+        color: $accent;
+    }
+
+    a:visited {
+        color: $darkerAccent;
+    }
 }
